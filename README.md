@@ -18,7 +18,7 @@
 
 3. **Switch to your branch:**
     ```bash
-    git checkout <branch-name>
+    git checkout sumi
     ```
 
 4. **Verify your branch:**
@@ -49,7 +49,7 @@
 
 - **Push your changes to your branch only:**
     ```bash
-    git push origin <branch-name>
+    git push origin sumi
     or
     git push (if you are already on your branch)
     ```
@@ -57,10 +57,6 @@
 ## Contributors' Branches
 
 - **sumi:** `origin/sumi`
-- **aisha:** `origin/aisha`
-- **shakil:** `origin/shakil`
-- **mahfuz:** `origin/mahfuz`
-- **shakur:** `origin/shakur`
 
 
 
