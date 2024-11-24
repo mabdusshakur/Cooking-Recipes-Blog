@@ -18,7 +18,7 @@
 
 3. **Switch to your branch:**
     ```bash
-    git checkout <branch-name>
+    git checkout shakil
     ```
 
 4. **Verify your branch:**
@@ -49,20 +49,14 @@
 
 - **Push your changes to your branch only:**
     ```bash
-    git push origin <branch-name>
+    git push origin shakil
     or
     git push (if you are already on your branch)
     ```
 
 ## Contributors' Branches
 
-- **sumi:** `origin/sumi`
-- **aisha:** `origin/aisha`
 - **shakil:** `origin/shakil`
-- **mahfuz:** `origin/mahfuz`
-- **shakur:** `origin/shakur`
-
-
 
 ## Commit Message Guidelines
 
