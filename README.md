@@ -54,6 +54,23 @@
     git push (if you are already on your branch)
     ```
 
+## Things to Do After You Finish a Task
+
+### Creating a Pull Request
+
+1. **Navigate to the repository on GitHub.**
+2. **Click on the `Pull requests` tab.**
+3. **Click the `New pull request` button.**
+4. **Set the `dev` branch as the base branch.**
+5. **Set your branch as the compare branch.**
+6. **Click the `Create pull request` button.**
+7. **Provide a title and description for the pull request.**
+8. **Click the `Create pull request` button again.**
+
+> **Note:** Ensure your branch is up to date with the `dev` branch before creating a pull request.
+> 
+> **Note:** Do not merge your pull request; it should be reviewed and merged by someone else.
+
 ## Contributors' Branches
 
 - **sumi:** `origin/sumi`
