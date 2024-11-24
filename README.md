@@ -62,3 +62,14 @@
 - **mahfuz:** `origin/mahfuz`
 - **shakur:** `origin/shakur`
 
+
+
+## Commit Message Guidelines
+
+- **Add, <your message>** - When adding a new feature or functionality
+- **Update, <your message>** - When updating an existing feature or functionality
+- **Fix, <your message>** - When fixing a bug
+- **Refactor, <your message>** - When refactoring code, means changing the code without changing its behavior
+- **Remove, <your message>** - When removing a feature or functionality
+- **Test, <your message>** - When adding or updating tests
+- **Docs, <your message>** - When adding or updating documentation
