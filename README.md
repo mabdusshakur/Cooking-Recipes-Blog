@@ -22,7 +22,11 @@
 
 3. **Switch to your branch:**
     ```bash
+<<<<<<< HEAD
     git checkout aisha
+=======
+    git checkout shakil
+>>>>>>> shakil
     ```
 
 4. **Verify your branch:**
@@ -53,7 +57,11 @@
 
 - **Push your changes to your branch only:**
     ```bash
+<<<<<<< HEAD
     git push origin aisha
+=======
+    git push origin shakil
+>>>>>>> shakil
     or
     git push (if you are already on your branch)
     ```
@@ -77,9 +85,13 @@
 
 ## Contributors' Branches
 
+<<<<<<< HEAD
 - **aisha:** `origin/aisha`
 
 
+=======
+- **shakil:** `origin/shakil`
+>>>>>>> shakil
 
 ## Commit Message Guidelines
 
