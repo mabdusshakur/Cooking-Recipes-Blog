@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->encryptCookies(except: ['token', 'access_token']);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
