@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Helpers\Logger;
+use App\Helpers\OtpHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -15,27 +17,139 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $rules = [
-            'name' => 'required|string|max:40',
-            'email' => 'required|string|email|max:40|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|string|in:admin,author,user',
-        ];
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:40',
+                'email' => 'required|string|email|max:40|unique:users,email',
+                'password' => 'required|string|min:6|confirmed',
+                'role' => 'required|string|in:author,user',
+            ]);
 
-        $data = $this->authValidation($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-            'role' => $data['role'],
-        ]);
+            // get validated data
+            $data = $validator->validated();
 
-        /** @var \Tymon\JWTAuth\JWTGuard $auth */
-        $auth = Auth::guard('api');
-        $token = $auth->login($user);
+            // Initialize OtpHelper
+            $otp = new OtpHelper(4, $data['email']);
 
-        return $this->respondWithToken($token);
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'role' => $data['role'],
+                'otp' => $otp->getOtp(), // Set OTP to user
+            ]);
+
+            // Send OTP to user
+            $otp->sendOtp($data['email'], ['subject' => 'Account Verification']);
+            
+            return ResponseHelper::sendSuccess('User registered successfully', [], 201);
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
+        }
+    }
+
+    
+    /**
+     * Summary of verifyOtp
+     * find the user by the email, 
+     * check if the otp is expired or not, 
+     * check if the otp is valid or not, 
+     * then if valid otp, set the email_verified_at to the current time,
+     * and set the otp to 0.
+     * @param string $email
+     * @param integer $otp
+     * @return JsonResponse|mixed
+     */
+    public function verifyOtp(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|string|email|max:40',
+                'otp' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            // get validated data
+            $data = $validator->validated();
+
+            $email = $data['email'];
+            $otp = $data['otp'];
+
+            // Check if user exists
+            $user = User::where('email', $email)->first();
+            if(!$user) {
+                return ResponseHelper::sendError('User not found', [], 404);
+            }
+
+            if($user->updated_at->diffInMinutes(now()) > 2) {
+                return ResponseHelper::sendError('OTP expired, please re-generate new', [], 401);
+            }
+
+            // check if otp is valid, && otp is not null or 0, && otp is not expired (2 minutes)
+            if ($user->otp == $otp && ($otp != null || $otp != 0)) {
+                $user->email_verified_at = now();
+                $user->otp = 0;
+                $user->save();
+                return ResponseHelper::sendSuccess('OTP verified successfully', [], 200);
+            }
+
+            return ResponseHelper::sendError('Invalid OTP', [], 401);
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
+        }
+    }
+
+
+    /**
+     * Summary of resendOtp
+     * regenerate a otp, save to the user found by email and send the otp to the user
+     * @param string $email
+     * @return JsonResponse|mixed
+     */
+    public function resendOtp(){
+        try {
+            $validator = Validator::make(request()->all(), [
+                'email' => 'required|string|email|max:40',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            // get validated data
+            $data = $validator->validated();
+
+            $email = $data['email'];
+
+            // Check if user exists
+            $user = User::where('email', $email)->first();
+            if(!$user) {
+                return ResponseHelper::sendError('User not found', [], 404);
+            }
+            
+            // Initialize OtpHelper
+            $otp = new OtpHelper(4, $email);
+
+            $user->otp = $otp->getOtp(); // Set OTP to user
+            $user->save();
+
+            // Send OTP to user
+            $otp->sendOtp($email, ['subject' => 'Account Verification']);
+            
+            return ResponseHelper::sendSuccess('OTP sent successfully', [], 200);
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
+        }
     }
 
 
@@ -48,31 +162,41 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $rules = [
-            'email' => 'required|string|max:40',
-            'password' => 'required|string',
-        ];
+        try {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|string|max:40',
+                'password' => 'required|string',
+            ]);
 
-        $data = $this->authValidation($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
 
-        $email = $data['email'];
-        $password = $data['password'];
+            // get validated data
+            $data = $validator->validated();
 
-        $credentials = [
-            'email' => $email,
-            'password' => $password,
-        ];
+            $email = $data['email'];
+            $password = $data['password'];
 
-        // Check if user exists
-        if(!User::where('email', $email)->exists()){
-            return ResponseHelper::sendSuccess('User not found', [], 404);
+            $credentials = [
+                'email' => $email,
+                'password' => $password,
+            ];
+
+            // Check if user exists
+            if (!User::where('email', $email)->exists()) {
+                return ResponseHelper::sendSuccess('User not found', [], 404);
+            }
+
+            if (!$token = Auth::guard('api')->attempt($credentials)) {
+                return ResponseHelper::sendError('Unauthorized', [], 401);
+            }
+
+            return $this->respondWithToken($token);
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
         }
-
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
-            return ResponseHelper::sendError('Unauthorized', [], 401);
-        }
-
-        return $this->respondWithToken($token);
     }
 
     /**
@@ -87,16 +211,5 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
         ]);
-    }
-
-
-    protected private function authValidation($request, $rules){
-        $validatedData = Validator::make($request, $rules);
-
-        if ($validatedData->fails()) {
-            return ResponseHelper::sendError('Validation error', $validatedData->errors(), 422);
-        }
-
-        return $validatedData->validated();
     }
 }
