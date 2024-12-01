@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class SubscribeEmail extends Model
+class SubscribeEmail extends BaseModel
 {
-    //
+    protected $fillable = ['email'];
 }

@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class FeaturedRecipe extends Model
+class FeaturedRecipe extends BaseModel
 {
-    //
+    protected $fillable = ['recipe_id'];
+
+    public function recipes()
+    {
+        return $this->belongsTo(Recipe::class);
+    }
 }

@@ -50,6 +50,13 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+    // Relationships
+    public function authors()
+    {
+        return $this->hasMany(Author::class);
+    }
+
+
 
     // For JWT Auth
     

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Equipment extends Model
+class Equipment extends BaseModel
 {
+    protected $fillable = ['name', 'recipe_id'];
+
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);

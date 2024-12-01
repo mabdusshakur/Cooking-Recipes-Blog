@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class BlogPost extends Model
+class BlogPost extends BaseModel
 {
+    protected $fillable = [
+        'title',
+        'content',
+        'main_image',
+        'author_id',
+        'category_id',
+        'is_active',
+        'is_deleted'
+    ];
+
+    // Relationships
     public function author()
     {
         return $this->belongsTo(Author::class);

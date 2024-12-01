@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+class BlogCategory extends BaseModel
+{
+    protected $fillable = ['name', 'total_blog', 'is_active', 'is_deleted'];
 
-class BlogCategory extends Model
-{
+    // Relationships
     public function blogPosts()
-{
-    return $this->hasMany(BlogPost::class);
-}
+    {
+        return $this->hasMany(BlogPost::class);
+    }
 }

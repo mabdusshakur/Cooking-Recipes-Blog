@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class RecipeCategory extends Model
+class RecipeCategory extends BaseModel
 {
+    protected $fillable = ['name', 'total_recipe', 'is_active', 'is_deleted'];
+
+    // Relationships
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
