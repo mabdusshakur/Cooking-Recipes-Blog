@@ -16,12 +16,14 @@ class CreateAuthorsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('mini_bio');
-            $table->text('main_bio');
-            $table->text('signature');
+            $table->longText('main_bio');
+            $table->string('signature');
             $table->string('profile_title');
             $table->string('main_image')->nullable();
             $table->string('main_header');
             $table->string('mini_header');
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

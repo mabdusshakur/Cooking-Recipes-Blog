@@ -19,11 +19,12 @@ return new class extends Migration
             $table->integer('serving')->comment('For how many people can eat at a time');
             $table->string('profile_title');
             $table->string('main_image');
-            $table->text('long_description');
+            $table->longText('long_description');
             $table->text('short_description');
-            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('recipe_categories')->onDelete('cascade');
-            $table->boolean('status')->default(true);
+            $table->foreignId('author_id')->constrained('authors')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->constrained('recipe_categories')->restrictOnDelete()->cascadeOnUpdate();
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('total_blog')->default(0);
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

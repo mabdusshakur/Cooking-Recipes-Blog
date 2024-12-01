@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
-            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('blog_categories')->onDelete('cascade');
+            $table->longText('content');
             $table->string('main_image')->nullable();
-            $table->boolean('status')->default(true)->comment('Status of the blog post (active/inactive)');
+            $table->foreignId('author_id')->constrained('authors')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->constrained('blog_categories')->restrictOnDelete()->cascadeOnUpdate();
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

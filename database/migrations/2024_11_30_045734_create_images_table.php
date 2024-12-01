@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')
-                  ->constrained('authors')
-                  ->onDelete('cascade');
             $table->string('url');
+            $table->foreignId('author_id')->constrained('authors')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

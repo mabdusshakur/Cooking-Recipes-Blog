@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('nutritional_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_id')->constrained('recipes')->onDelete('cascade');
             $table->string('name');
             $table->float('amount');
-            $table->float('calory_per_gram')->nullable();
+            $table->float('calorie_per_gram')->nullable();
+            $table->foreignId('recipe_id')->constrained('recipes')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
