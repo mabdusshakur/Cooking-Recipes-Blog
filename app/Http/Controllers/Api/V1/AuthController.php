@@ -7,6 +7,7 @@ use App\Helpers\OtpHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\AuthorService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,12 @@ use Validator;
 
 class AuthController extends Controller
 {
+    protected $authorService;
+
+    public function __construct(AuthorService $authorService)
+    {
+        $this->authorService = $authorService;
+    }
 
     public function register(Request $request)
     {
@@ -35,7 +42,7 @@ class AuthController extends Controller
             // Initialize OtpHelper
             $otp = new OtpHelper(4, $data['email']);
 
-            User::create([
+            $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => $data['password'],
@@ -45,7 +52,13 @@ class AuthController extends Controller
 
             // Send OTP to user
             $otp->sendOtp($data['email'], ['subject' => 'Account Verification']);
-            
+
+
+            if ($data['role'] == 'author') {
+                $this->authorService->createAuthor(['user_id' => $user->id]);
+                return ResponseHelper::sendSuccess('Author registered successfully', [], 201);
+            }
+
             return ResponseHelper::sendSuccess('User registered successfully', [], 201);
         } catch (\Throwable $th) {
             Logger::Log($th);
@@ -197,6 +210,17 @@ class AuthController extends Controller
             Logger::Log($th);
             return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
         }
+    }
+
+    public function profile()
+    {
+        return ResponseHelper::sendSuccess('User profile', Auth::guard('api')->user(), 200);
+    }
+
+    public function logout()
+    {
+        Auth::guard('api')->logout();
+        return ResponseHelper::sendSuccess('Successfully logged out', [], 200);
     }
 
     /**
