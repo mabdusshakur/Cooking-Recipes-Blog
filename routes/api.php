@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\AuthorController;
+use App\Http\Controllers\Api\V1\RecipeCategoryController;
 use App\Http\Controllers\Api\V1\BlogPostCategoryController;
-use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function () {
    
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Blog Category Routes (Show All, Show One)
         Route::apiResource('/blog-category', BlogPostCategoryController::class)->only('index', 'show');
+         // Recipe Category Routes (Show All, Show One)
+        Route::apiResource('/recipe-category', RecipeCategoryController::class)->only('index', 'show');
 
         // User Middleware
         Route::group(['prefix' => 'user', 'middleware' => 'CheckRole:user'], function () {
@@ -44,6 +47,9 @@ Route::group(['prefix' => 'v1'], function () {
 
             // Blog Category Routes (Show One, Show All, Create, Update)
             Route::apiResource('/blog-category', BlogPostCategoryController::class)->only('index', 'show' , 'store', 'update');
+              // Recipe Category Routes (Show One, Show All, Create, Update)
+
+            Route::apiResource('/recipe-category', RecipeCategoryController::class)->only('index', 'show' , 'store', 'update');
         });
        
         // Admin Middleware
@@ -56,6 +62,8 @@ Route::group(['prefix' => 'v1'], function () {
 
             // Blog Category (CRUD)
             Route::apiResource('/blog-category', BlogPostCategoryController::class);
+            // Recipe Category (CRUD)
+            Route::apiResource('/recipe-category', RecipeCategoryController::class);
         });
     });
 });
