@@ -91,7 +91,7 @@ class BlogPostCategoryController extends Controller
     public function destroy(BlogCategory $blogCategory)
     {
         try {
-            $blogCategory->delete();
+            $blogCategory->update(['is_deleted' => true]);
             return ResponseHelper::sendSuccess('Blog category deleted', null, 200);
         } catch (\Throwable $th) {
             Logger::Log($th);
