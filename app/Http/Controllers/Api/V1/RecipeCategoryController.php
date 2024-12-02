@@ -20,7 +20,7 @@ class RecipeCategoryController extends Controller
             $user = auth('api')->user();
             $recipeCategories = $user->role == 'admin'
                 ? RecipeCategory::with('recipes')->get()
-                : RecipeCategory::with('recipes')->where('is_active', true)->get();
+                : RecipeCategory::active()->with('recipes')->get();
 
             return ResponseHelper::sendSuccess(
                 'Recipe categories fetched successfully.',
@@ -39,6 +39,8 @@ class RecipeCategoryController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = auth('api')->user();
+
             $request->validate([
                 'name' => 'required|string|max:255',
                 'is_active' => 'nullable|boolean',
@@ -46,9 +48,7 @@ class RecipeCategoryController extends Controller
 
             $recipeCategory = RecipeCategory::create([
                 'name' => $request->name,
-                'is_active' => $request->is_active ?? false,
-                'is_deleted' => false,
-                'total_recipe' => 0, // Initialize to 0 when creating a new category
+                'is_active' => $user->role === 'admin' ? $request->is_active : false,
             ]);
 
             return ResponseHelper::sendSuccess('Recipe category created successfully.', new RecipeCategoryResource($recipeCategory), 201);
@@ -59,28 +59,13 @@ class RecipeCategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(RecipeCategory $recipeCategory)
-    {
-        try {
-            return ResponseHelper::sendSuccess(
-                'Recipe category fetched successfully.',
-                new RecipeCategoryResource($recipeCategory->load('recipes')),
-                200
-            );
-        } catch (\Throwable $th) {
-            Logger::Log($th);
-            return ResponseHelper::sendError('Failed to fetch recipe category.', $th->getMessage(), 500);
-        }
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, RecipeCategory $recipeCategory)
     {
         try {
+            $user = auth('api')->user();
+
             $request->validate([
                 'name' => 'nullable|string|max:255',
                 'is_active' => 'nullable|boolean',
@@ -88,7 +73,7 @@ class RecipeCategoryController extends Controller
 
             $recipeCategory->update([
                 'name' => $request->name ?? $recipeCategory->name,
-                'is_active' => $request->is_active ?? $recipeCategory->is_active,
+                'is_active' => $user->role == 'admin' ? $request->is_active ?: $recipeCategory->is_active : false,
             ]);
 
             return ResponseHelper::sendSuccess('Recipe category updated successfully.', new RecipeCategoryResource($recipeCategory), 200);
