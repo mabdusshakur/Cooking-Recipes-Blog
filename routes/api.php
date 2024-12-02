@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\AuthorController;
 use App\Http\Controllers\Api\V1\BlogPostCategoryController;
+use App\Http\Controllers\Api\V1\BlogPostController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function () {
@@ -24,6 +25,9 @@ Route::group(['prefix' => 'v1'], function () {
         // Blog Category Routes (Show All, Show One)
         Route::apiResource('/blog-category', BlogPostCategoryController::class)->only('index', 'show');
 
+        // Blog Post Routes (Show All, Show One)
+        Route::apiResource('/blog-post', BlogPostController::class)->only('index', 'show');
+
         // User Middleware
         Route::group(['prefix' => 'user', 'middleware' => 'CheckRole:user'], function () {
             // Apply for author
@@ -44,6 +48,9 @@ Route::group(['prefix' => 'v1'], function () {
 
             // Blog Category Routes (Show One, Show All, Create, Update)
             Route::apiResource('/blog-category', BlogPostCategoryController::class, ['as' => 'author'])->only('index', 'show' , 'store', 'update');
+
+            // Blog Post Routes (CRUD)
+            Route::apiResource('/blog-post', BlogPostController::class, ['as' => 'author'])->only('index', 'show', 'store', 'update', 'destroy');
         });
        
         // Admin Middleware
@@ -56,6 +63,9 @@ Route::group(['prefix' => 'v1'], function () {
 
             // Blog Category (CRUD)
             Route::apiResource('/blog-category', BlogPostCategoryController::class, ['as' => 'admin']);
+
+            // Blog Post Routes (CRUD)
+            Route::apiResource('/blog-post', BlogPostController::class, ['as' => 'admin'])->only('index', 'show', 'store', 'update', 'destroy');
         });
     });
 });
