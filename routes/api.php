@@ -43,7 +43,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/profile', [AuthorController::class, 'getCurrentAuthorProfile']);
 
             // Blog Category Routes (Show One, Show All, Create, Update)
-            Route::apiResource('/blog-category', BlogPostCategoryController::class)->only('index', 'show' , 'store', 'update');
+            Route::apiResource('/blog-category', BlogPostCategoryController::class, ['as' => 'author'])->only('index', 'show' , 'store', 'update');
         });
        
         // Admin Middleware
@@ -55,7 +55,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::patch('/author/approve', [AuthorController::class, 'approveAuthor']);
 
             // Blog Category (CRUD)
-            Route::apiResource('/blog-category', BlogPostCategoryController::class);
+            Route::apiResource('/blog-category', BlogPostCategoryController::class, ['as' => 'admin']);
         });
     });
 });
