@@ -18,6 +18,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/login', [AuthController::class, 'login']);
     });
 
+
+    
     Route::group(['middleware' => 'api'], function () {
         // Auth Routes
         Route::post('auth/logout', [AuthController::class, 'logout']);
