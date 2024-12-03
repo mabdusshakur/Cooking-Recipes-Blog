@@ -19,8 +19,8 @@ class RecipeCategoryController extends Controller
         try {
             $user = auth('api')->user();
             $recipeCategories = $user->role == 'admin'
-                ? RecipeCategory::with('recipes')->get()
-                : RecipeCategory::active()->with('recipes')->get();
+                ? RecipeCategory::all()
+                : RecipeCategory::active()->get();
 
             return ResponseHelper::sendSuccess(
                 'Recipe categories fetched successfully.',
@@ -87,7 +87,7 @@ class RecipeCategoryController extends Controller
         try {
             return ResponseHelper::sendSuccess(
                 'Recipe category fetched successfully.',
-                new RecipeCategoryResource($recipeCategory->load('recipes')),
+                new RecipeCategoryResource($recipeCategory),
                 200
             );
         } catch (\Throwable $th) {
