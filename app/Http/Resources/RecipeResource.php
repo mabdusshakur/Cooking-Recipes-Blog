@@ -29,7 +29,6 @@ class RecipeResource extends JsonResource
             'ingredients' => IngredientResource::collection($this->whenLoaded('ingredients')), 
             'equipments' => EquipmentResource::collection($this->whenLoaded('equipments')), 
             'nutritional_values' => NutritionalValueResource::collection($this->whenLoaded('nutritionalValues')), 
-            'images' => ImageResource::collection($this->whenLoaded('images')),
             'is_active' => $this->is_active,
             'is_deleted' => $this->is_deleted,
             'created_at' => $this->created_at,

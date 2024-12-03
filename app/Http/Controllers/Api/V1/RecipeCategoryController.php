@@ -19,8 +19,8 @@ class RecipeCategoryController extends Controller
         try {
             $user = auth('api')->user();
             $recipeCategories = $user->role == 'admin'
-                ? RecipeCategory::with('recipes')->get()
-                : RecipeCategory::active()->with('recipes')->get();
+                ? RecipeCategory::all()
+                : RecipeCategory::active()->get();
 
             return ResponseHelper::sendSuccess(
                 'Recipe categories fetched successfully.',
@@ -73,7 +73,7 @@ class RecipeCategoryController extends Controller
 
             $recipeCategory->update([
                 'name' => $request->name ?? $recipeCategory->name,
-                'is_active' => $user->role == 'admin' ? $request->is_active ?: $recipeCategory->is_active : false,
+                'is_active' => $user->role == 'admin' ? $request->is_active : false,
             ]);
 
             return ResponseHelper::sendSuccess('Recipe category updated successfully.', new RecipeCategoryResource($recipeCategory), 200);

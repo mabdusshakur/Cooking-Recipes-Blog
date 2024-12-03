@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('prepare_time');
             $table->string('difficulty');
             $table->integer('serving')->comment('For how many people can eat at a time');
-            $table->string('profile_title');
             $table->string('main_image');
             $table->longText('long_description');
             $table->text('short_description');
