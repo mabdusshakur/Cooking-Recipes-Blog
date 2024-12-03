@@ -19,21 +19,6 @@ class Recipe extends BaseModel
         'is_deleted'
     ];
 
-
-    // On Boot functionalities
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($recipe) {
-            $recipe->recipeCategory->increment('total_recipes', 1);
-        });
-
-        static::deleted(function ($recipe) {
-            $recipe->recipeCategory->decrement('total_recipes', 1);
-        });
-    }
-
     // Relationships
     public function author()
     {
@@ -59,10 +44,5 @@ class Recipe extends BaseModel
     public function nutritionalValues()
     {
         return $this->hasMany(NutritionalValue::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(Image::class);
     }
 }

@@ -73,7 +73,7 @@ class RecipeCategoryController extends Controller
 
             $recipeCategory->update([
                 'name' => $request->name ?? $recipeCategory->name,
-                'is_active' => $user->role == 'admin' ? $request->is_active ?: $recipeCategory->is_active : false,
+                'is_active' => $user->role == 'admin' ? $request->is_active : false,
             ]);
 
             return ResponseHelper::sendSuccess('Recipe category updated successfully.', new RecipeCategoryResource($recipeCategory), 200);
