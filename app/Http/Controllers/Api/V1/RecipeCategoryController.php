@@ -82,6 +82,19 @@ class RecipeCategoryController extends Controller
             return ResponseHelper::sendError('Failed to update recipe category.', $th->getMessage(), 500);
         }
     }
+    public function show(RecipeCategory $recipeCategory)
+    {
+        try {
+            return ResponseHelper::sendSuccess(
+                'Recipe category fetched successfully.',
+                new RecipeCategoryResource($recipeCategory->load('recipes')),
+                200
+            );
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Failed to fetch recipe category.', $th->getMessage(), 500);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -26,3 +26,4 @@ class RecipeCategoryResource extends JsonResource
         ];
     }
 }
+
