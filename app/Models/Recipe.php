@@ -27,7 +27,7 @@ class Recipe extends BaseModel
 
     public function recipeCategory()
     {
-        return $this->belongsTo(RecipeCategory::class);
+        return $this->belongsTo(RecipeCategory::class, 'category_id');
     }
 
     public function ingredients()

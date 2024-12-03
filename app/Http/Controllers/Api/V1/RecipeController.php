@@ -19,12 +19,12 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        if (auth('api')->user()->role == 'admin') {
-            $recipes = Recipe::with('author', 'recipeCategory', 'ingredients', 'nutritionalValues')->get();
+        if(auth('api')->user()->role == 'admin') {
+            $recipes = Recipe::paginate(10);
         } else {
-            $recipes = Recipe::active()->get();
+            $recipes = Recipe::active()->paginate(10);
         }
-        return ResponseHelper::sendSuccess('Recipes fetched', RecipeResource::collection($recipes), 200);
+        return RecipeResource::collection($recipes->load(['recipeCategory', 'ingredients', 'nutritionalValues']));
     }
 
     /**
@@ -67,7 +67,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe), 200);
+        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients', 'nutritionalValues'])), 200);
     }
 
     /**
