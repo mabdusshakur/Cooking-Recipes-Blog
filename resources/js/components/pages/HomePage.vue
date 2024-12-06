@@ -1,19 +1,23 @@
 <template>
     <div>
-      <!-- Mobile Menu -->
+   
       <MobileMenu />
   
-      <!-- Header -->
       <Header />
   
-      <!-- Slider -->
       <Slider />
 
-      <!-- FeaturedRecipe -->
   
       <FeaturedRecipe />
     
-  
+      <PopularRecipe />
+
+    
+      <PopularAuthor />
+    
+      <NewsLetter />
+      
+      <Footer />
     
     </div>
   </template>
@@ -23,6 +27,10 @@
   import Header from "@/components/common/Header.vue"; 
   import Slider from "@/components/home/Slider.vue"; 
   import FeaturedRecipe from "@/components/home/FeaturedRecipe.vue"; 
+  import PopularRecipe from "@/components/home/PopularRecipe.vue"; 
+  import PopularAuthor from "@/components/home/PopularAuthor.vue"; 
+  import NewsLetter from "@/components/common/NewsLetter.vue"; 
+  import Footer from "@/components/common/Footer.vue"; 
   
   export default {
     name: "HomePage",
@@ -31,6 +39,10 @@
       Header,
       Slider,
       FeaturedRecipe,
+      PopularRecipe,
+      PopularAuthor,
+      NewsLetter,
+      Footer
     },
     methods: {
       goToAbout() {
