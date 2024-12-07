@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->integer('otp')->default(0);
             $table->enum('role', ['user', 'admin', 'author'])->default('user');
+            $table->enum('status', ['pending', 'approved'])->default('pending');
             $table->timestamps();
+  
         });
-        
+            
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
