@@ -3,4 +3,4 @@ import router from './router';
 import Author from './components/author/Author.vue';
 import DashboardLayout from './layouts/DashboardLayout.vue';
 
-createApp(Author).component('dashboard-layout', DashboardLayout).use(router).mount('#author');
+createApp(Author).use(router).mount('#author');
