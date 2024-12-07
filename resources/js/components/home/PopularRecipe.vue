@@ -79,33 +79,30 @@
      </section>
 </template>
 
-<script>
-export default {
-     name: "PopularRecipe",
-     data() {
-          return {
-               slides: [
-                    { id: 1, title: "Breakfast", image: "/user/assets/images/food/style-2/04.png" },
-                    { id: 2, title: "Dinner", image: "/user/assets/images/food/style-2/05.png" },
-                    { id: 3, title: "Lunch", image: "/user/assets/images/food/style-2/06.png" },
-                    { id: 4, title: "Vegan", image: "/user/assets/images/food/style-2/07.png" },
-               ],
-               popularFoods: [
-                    {
-                         image: "/user/assets/images/popular-food/01.jpg",
-                         name: "Veggie Tagliatelle Bolognese",
-                         category: "Lunch",
-                         time: "1 HOUR",
-                         difficulty: "HARD PREP",
-                         serves: "4 SERVES",
-                         authorImage: "/user/assets/images/chef/author/home-5/01.jpg",
-                         tag: "Vegan",
-                    },
-                    
-               ],
-          };
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const slides = ref([
+     { id: 1, title: "Breakfast", image: "/user/assets/images/food/style-2/04.png" },
+     { id: 2, title: "Dinner", image: "/user/assets/images/food/style-2/05.png" },
+     { id: 3, title: "Lunch", image: "/user/assets/images/food/style-2/06.png" },
+     { id: 4, title: "Vegan", image: "/user/assets/images/food/style-2/07.png" },
+]);
+
+const popularFoods = ref([
+     {
+          image: "/user/assets/images/popular-food/01.jpg",
+          name: "Veggie Tagliatelle Bolognese",
+          category: "Lunch",
+          time: "1 HOUR",
+          difficulty: "HARD PREP",
+          serves: "4 SERVES",
+          authorImage: "/user/assets/images/chef/author/home-5/01.jpg",
+          tag: "Vegan",
      },
-};
+
+]);
+
 </script>
 
 <style scoped>
