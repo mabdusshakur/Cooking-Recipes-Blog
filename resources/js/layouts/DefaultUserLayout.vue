@@ -1,7 +1,10 @@
 <script setup>
+import { onMounted } from "vue"; 
 import MobileMenu from "../components/common/MobileMenu.vue";
 import Header from "../components/common/Header.vue";
 import Footer from "../components/common/Footer.vue";
+
+
 </script>
 
 <template>

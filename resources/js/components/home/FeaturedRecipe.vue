@@ -91,6 +91,20 @@ const recipes = ref([
     serves: 4
   },
 ]);
+var swiper = new Swiper(".featured-swiper", {
+			slidesPerView: 1,
+			spaceBetween: 30,
+			centeredSlides: false,
+			loop: true,
+			autoplay: {
+				delay: 1200,
+				disableOnInteraction: false,
+			},
+			pagination: {
+				el: ".featured-swiper-pagination",
+				clickable: true,
+			},
+		});
 
 </script>
 

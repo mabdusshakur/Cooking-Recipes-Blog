@@ -1,14 +1,13 @@
 <template>
     <div>
-        <MobileMenu />
-        <Header />
+   
         <PageHeader />
         <About />
         <PopularChef />
         <BookingTable />
         <Sponsor />
         <NewsLetter />
-        <Footer />
+   
     </div>
 </template>
 
