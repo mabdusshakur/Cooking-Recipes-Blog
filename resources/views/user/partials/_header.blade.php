@@ -2,23 +2,24 @@
      <div class="container-fluid">
           <div class="header-area">
                <div class="logo">
-                    <a href="index.html">Cooking & Recipes</a>
+                    <a href="{{ url('/') }}">Cooking & Recipes</a>
                </div>
                <div class="main-menu">
                     <ul>
                          <li>
-                              <a class="active" href="{{ url('/')}}">Home</a>
+                             <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
                          </li>
                          <li>
-                              <a href="{{ url('recipes')}}">Recipes</a>
+                             <a class="{{ request()->is('recipes') ? 'active' : '' }}" href="{{ url('recipes') }}">Recipes</a>
                          </li>
                          <li>
-                              <a href="{{ url('blog') }}">Blogs</a>
+                             <a class="{{ request()->is('blog') ? 'active' : '' }}" href="{{ url('blog') }}">Blogs</a>
                          </li>
                          <li>
-                              <a href="{{ url('about')}}">About Us</a>
+                             <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ url('about') }}">About Us</a>
                          </li>
-                    </ul>
+                     </ul>
+                     
                </div>
                <div class="author-option">
                     <div class="author-area">
