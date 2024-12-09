@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\AdminFrontendController;
 use App\Http\Controllers\AuthorFrontendController;
 
 Route::get('/',[FrontendController::class,'index']);
@@ -35,6 +36,31 @@ Route::prefix('/author')->group(function () {
         Route::prefix('/category')->group(function () {
             Route::get('/', [AuthorFrontendController::class,'recipeCategoryIndex'])->name('front.author.recipe.category.index');
             Route::get('/create', [AuthorFrontendController::class,'recipeCategoryCreate'])->name('front.author.recipe.category.create');
+        });
+    });
+});
+
+//Admin Routes
+Route::prefix('/admin')->group(function () {
+    Route::get('/',[AdminFrontendController::class,'index'])->name('front.admin.dashboard');
+
+    Route::prefix('/blog')->group(function () {
+
+        Route::get('/', [AdminFrontendController::class,'blogIndex'])->name('front.admin.blog.index');
+
+        Route::prefix('/category')->group(function () {
+            Route::get('/', [AdminFrontendController::class,'blogCategoryIndex'])->name('front.admin.blog.category.index');
+            Route::get('/create', [AdminFrontendController::class,'blogCategoryCreate'])->name('front.admin.blog.category.create');
+        });
+    });
+
+
+    Route::prefix('/recipe')->group(function () {
+        Route::get('/', [AdminFrontendController::class,'recipeIndex'])->name('front.admin.recipe.index');
+
+        Route::prefix('/category')->group(function () {
+            Route::get('/', [AdminFrontendController::class,'recipeCategoryIndex'])->name('front.admin.recipe.category.index');
+            Route::get('/create', [AdminFrontendController::class,'recipeCategoryCreate'])->name('front.admin.recipe.category.create');
         });
     });
 });
