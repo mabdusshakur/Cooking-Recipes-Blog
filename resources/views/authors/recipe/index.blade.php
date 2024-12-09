@@ -4,16 +4,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body table-responsive">
-                    <h4 class="header-title mt-0">All Blogs</h4>
+                    <h4 class="header-title mt-0">All Recipes</h4>
                     <p class="text-muted font-14 mb-3">
-                        All your blogs are listed here. You can edit them, as well as create new blogs. <strong>If you need new category for your blogs, you can create them </strong><a href="">here</a>.
+                        All your recipes are listed here. You can edit them, as well as create new recipe. <strong>If you need new category for your recipe, you can create them </strong><a href="{{ route('front.author.recipe.category.index') }}">here</a>.
                     </p>
-                  
-                <div class="text-end mb-3">
-                    <a href="{{ route('front.author.blog.create') }}" class="btn btn-sm btn-success waves-effect waves-light" type="button">
-                        <i class="mdi mdi-plus"></i>
-                    </a>
-                </div>
+
+                    <div class="mb-3 text-end">
+                        <a class="btn btn-sm btn-success waves-effect waves-light" type="button" href="{{ route('front.author.recipe.create') }}">
+                            <i class="mdi mdi-plus"></i>
+                        </a>
+                    </div>
                     <table class="table-bordered table-bordered dt-responsive nowrap table" id="responsive-datatable">
                         <thead>
                             <tr>
@@ -49,7 +49,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
-    </div> <!-- end row -->
+    </div>
 @endsection
