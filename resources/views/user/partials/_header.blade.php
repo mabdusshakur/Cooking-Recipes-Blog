@@ -13,7 +13,7 @@
                               <a href="{{ url('recipes')}}">Recipes</a>
                          </li>
                          <li>
-                              <a href="{{ url('blogs') }}">Blogs</a>
+                              <a href="{{ url('blog') }}">Blogs</a>
                          </li>
                          <li>
                               <a href="{{ url('about')}}">About Us</a>

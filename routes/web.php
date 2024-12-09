@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorFrontendController;
 
 Route::get('/',[FrontendController::class,'index']);
 Route::get('/about',[FrontendController::class,'about']);
+Route::get('/blog',[FrontendController::class,'blog']);
 
 Route::prefix('/author')->group(function () {
     Route::get('/',[AuthorFrontendController::class,'index'])->name('front.author.dashboard');

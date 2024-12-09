@@ -10,6 +10,13 @@ class FrontendController extends Controller
         return view('user.home');
     }
     public function about(){
-        return view('user.about');
+        $data['pageHeader']='About Our Mezban';
+        $data['page']='About';
+        return view('user.about',$data);
+    }
+    public function blog(){
+        $data['pageHeader']='Cooking Blogs';
+        $data['page']='Blog';
+        return view('user.blog',$data);
     }
 }
