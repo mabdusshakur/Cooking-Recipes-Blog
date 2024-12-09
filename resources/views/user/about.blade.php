@@ -1,0 +1,9 @@
+@extends('layouts.app')
+@section('content')
+     @include('user.about.partials._pageheader')
+     @include('user.about.partials._about')
+     @include('user.about.partials._popularChef')
+     @include('user.about.partials._booking')
+     @include('user.about.partials._testimonial')
+     @include('user.about.partials._sponsor')
+@endsection

@@ -7,16 +7,16 @@
                <div class="main-menu">
                     <ul>
                          <li>
-                              <a class="active" href="#0">Home</a>
+                              <a class="active" href="{{ url('/')}}">Home</a>
                          </li>
                          <li>
-                              <a href="#0">Recipes</a>
+                              <a href="{{ url('recipes')}}">Recipes</a>
                          </li>
                          <li>
-                              <a href="#0">Blogs</a>
+                              <a href="{{ url('blogs') }}">Blogs</a>
                          </li>
                          <li>
-                              <a href="#0">About Us</a>
+                              <a href="{{ url('about')}}">About Us</a>
                          </li>
                     </ul>
                </div>
