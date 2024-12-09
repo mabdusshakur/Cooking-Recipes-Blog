@@ -19,4 +19,9 @@ class FrontendController extends Controller
         $data['page']='Blog';
         return view('user.blog',$data);
     }
+    public function recipes(){
+        $data['pageHeader']='All Recipies';
+        $data['page']='Menus';
+        return view('user.recipes',$data);
+    }
 }
