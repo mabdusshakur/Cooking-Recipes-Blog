@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthorFrontendController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\AuthorFrontendController;
+
+Route::get('/',[FrontendController::class,'index']);
 
 Route::prefix('/author')->group(function () {
     Route::get('/',[AuthorFrontendController::class,'index'])->name('front.author.dashboard');
