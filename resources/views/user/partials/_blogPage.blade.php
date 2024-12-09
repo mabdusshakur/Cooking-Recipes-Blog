@@ -31,7 +31,7 @@
                                          </ul>
                                      </div>
                                      <p>Rapidiousl Qntegrate Distrbuted Supply Chains Throug Markey Positionn Bestng Practces Chains Uapidiousl Qntegrate Distrbuted Supply Chains Throug Markey Positionn Bestng Practces Chains Fashion Economically And Sound Qources Foring [...]</p>
-                                     <a href="blog-single.html" class="food-btn"><span>Read More</span></a>
+                                     <a href="{{url('single-blog')}}" class="food-btn"><span>Read More</span></a>
                                  </div>
                              </div>
                          </div>

@@ -78,7 +78,7 @@
                                              Lunch
                                         </p>
                                         <div class="p-food-group">
-                                             <a href="#" class="food-btn"><span>View Recipe</span></a>
+                                             <a href="{{ url('single-recipe')}}" class="food-btn"><span>View Recipe</span></a>
                                         </div>
                                         <div class="d-flex my-2 gap-2 text-dark justify-content-center">
                                              <div class="left">

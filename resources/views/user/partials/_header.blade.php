@@ -10,10 +10,13 @@
                              <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
                          </li>
                          <li>
-                             <a class="{{ request()->is('recipes') ? 'active' : '' }}" href="{{ url('recipes') }}">Recipes</a>
+                             <a class="{{ request()->is('recipes') || request()->is('single-recipe') ? 'active' : '' }}" href="{{ url('recipes') }}">Recipes</a>
                          </li>
                          <li>
-                             <a class="{{ request()->is('blog') ? 'active' : '' }}" href="{{ url('blog') }}">Blogs</a>
+                              <a class="{{ request()->is('blog') || request()->is('single-blog') ? 'active' : '' }}" href="{{ url('blog') }}">Blogs</a>
+                         </li>
+                         <li>
+                             <a class="{{ request()->is('authors') ? 'active' : '' }}" href="{{ url('authors') }}">Authors</a>
                          </li>
                          <li>
                              <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ url('about') }}">About Us</a>

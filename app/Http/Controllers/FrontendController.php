@@ -24,4 +24,17 @@ class FrontendController extends Controller
         $data['page']='Menus';
         return view('user.recipes',$data);
     }
+    public function authors(){
+      
+        return view('user.authors');
+    }
+    public function singleRecipe(){
+      
+        return view('user.recipes.show');
+    }
+    public function singleBlog(){
+        $data['pageHeader']='Remo support center what forng semicon...';
+        $data['page']='Blog';
+        return view('user.blog.show',$data);
+    }
 }

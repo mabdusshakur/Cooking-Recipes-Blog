@@ -8,6 +8,9 @@ Route::get('/',[FrontendController::class,'index']);
 Route::get('/about',[FrontendController::class,'about']);
 Route::get('/blog',[FrontendController::class,'blog']);
 Route::get('/recipes',[FrontendController::class,'recipes']);
+Route::get('/authors',[FrontendController::class,'authors']);
+Route::get('/single-recipe',[FrontendController::class,'singleRecipe']);
+Route::get('/single-blog',[FrontendController::class,'singleBlog']);
 
 Route::prefix('/author')->group(function () {
     Route::get('/',[AuthorFrontendController::class,'index'])->name('front.author.dashboard');
