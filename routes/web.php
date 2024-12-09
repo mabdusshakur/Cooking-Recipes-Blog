@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/author')->group(function () {
     Route::get('/',[AuthorFrontendController::class,'index'])->name('front.author.dashboard');
+    Route::get('/profile',[AuthorFrontendController::class,'profile'])->name('front.author.profile');
 
     Route::prefix('/blog')->group(function () {
         Route::get('/', [AuthorFrontendController::class,'blogIndex'])->name('front.author.blog.index');
