@@ -11,12 +11,12 @@
                          <div class="chef-item">
                               <div class="chef-inner">
                                    <div class="chef-thumb">
-                                        <img src="assets/images/chef/01.jpg" alt="food-chef">
+                                        <img src="{{ asset('user/assets/images/chef/01.jpg')}}" alt="food-chef">
                                    </div>
                                    <div class="chef-content">
                                         <div class="chef-author">
                                              <a href="#">
-                                                  <img src="assets/images/chef/author/07.jpg" alt="chef-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/07.jpg')}}" alt="chef-author">
                                              </a>
                                         </div>
                                         <h5><a href="#">Sanzida laila Trisha</a></h5>
@@ -47,12 +47,12 @@
                          <div class="chef-item">
                               <div class="chef-inner">
                                    <div class="chef-thumb">
-                                        <img src="assets/images/chef/01.jpg" alt="food-chef">
+                                        <img src="{{ asset('user/assets/images/chef/01.jpg')}}" alt="food-chef">
                                    </div>
                                    <div class="chef-content">
                                         <div class="chef-author">
                                              <a href="#">
-                                                  <img src="assets/images/chef/author/07.jpg" alt="chef-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/07.jpg')}}" alt="chef-author">
                                              </a>
                                         </div>
                                         <h5><a href="#">Sanzida laila Trisha</a></h5>
@@ -83,12 +83,12 @@
                          <div class="chef-item">
                               <div class="chef-inner">
                                    <div class="chef-thumb">
-                                        <img src="assets/images/chef/01.jpg" alt="food-chef">
+                                        <img src="{{ asset('user/assets/images/chef/01.jpg')}}" alt="food-chef">
                                    </div>
                                    <div class="chef-content">
                                         <div class="chef-author">
                                              <a href="#">
-                                                  <img src="assets/images/chef/author/07.jpg" alt="chef-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/07.jpg')}}" alt="chef-author">
                                              </a>
                                         </div>
                                         <h5><a href="#">Sanzida laila Trisha</a></h5>

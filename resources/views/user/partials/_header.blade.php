@@ -24,7 +24,7 @@
                     <div class="author-area">
                          <div class="author-account">
                               <div class="author-icon">
-                                   <img src="assets/images/chef/author/08.jpg" alt="author">
+                                   <img src="{{ asset('user/assets/images/chef/author/08.jpg') }}" alt="author">
                               </div>
                               <div class="author-select">
                                    <select name="author-select" id="author-select">

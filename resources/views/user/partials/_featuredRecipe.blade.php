@@ -14,7 +14,7 @@
                          <div class="p-food-item style-2">
                               <div class="p-food-inner">
                                    <div class="p-food-thumb">
-                                        <img src="assets/images/popular-food/style-2/01.jpg" alt="p-food">
+                                        <img src="{{ asset('user/assets/images/popular-food/style-2/01.jpg')}}" alt="p-food">
                                         <span class="bg-success"
                                              style="padding: 8px 7px 8px 7px; border-radius: 10px; top: 6px; left: 6px;">Vegan</span>
                                    </div>
@@ -25,7 +25,7 @@
                                         </p>
                                         <div class="p-food-group">
                                              <a href="homechef-single.html" class="user icon">
-                                                  <img src="assets/images/chef/author/user/01.jpg" alt="food-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/user/01.jpg')}}" alt="food-author">
                                              </a>
                                              <a href="#" class="food-btn"><span>View Recipe</span></a>
                                         </div>
@@ -62,7 +62,7 @@
                          <div class="p-food-item style-2">
                               <div class="p-food-inner">
                                    <div class="p-food-thumb">
-                                        <img src="assets/images/popular-food/style-2/01.jpg" alt="p-food">
+                                        <img src="{{ asset('user/assets/images/popular-food/style-2/01.jpg')}}" alt="p-food">
                                         <span class="bg-success"
                                              style="padding: 8px 7px 8px 7px; border-radius: 10px; top: 6px; left: 6px;">Vegan</span>
                                    </div>
@@ -73,7 +73,7 @@
                                         </p>
                                         <div class="p-food-group">
                                              <a href="homechef-single.html" class="user icon">
-                                                  <img src="assets/images/chef/author/user/01.jpg" alt="food-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/user/01.jpg')}}" alt="food-author">
                                              </a>
                                              <a href="#" class="food-btn"><span>View Recipe</span></a>
                                         </div>
@@ -110,7 +110,7 @@
                          <div class="p-food-item style-2">
                               <div class="p-food-inner">
                                    <div class="p-food-thumb">
-                                        <img src="assets/images/popular-food/style-2/01.jpg" alt="p-food">
+                                        <img src="{{ asset('user/assets/images/popular-food/style-2/01.jpg')}}" alt="p-food">
                                         <span class="bg-success"
                                              style="padding: 8px 7px 8px 7px; border-radius: 10px; top: 6px; left: 6px;">Vegan</span>
                                    </div>
@@ -121,7 +121,7 @@
                                         </p>
                                         <div class="p-food-group">
                                              <a href="homechef-single.html" class="user icon">
-                                                  <img src="assets/images/chef/author/user/01.jpg" alt="food-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/user/01.jpg')}}" alt="food-author">
                                              </a>
                                              <a href="#" class="food-btn"><span>View Recipe</span></a>
                                         </div>
@@ -158,7 +158,7 @@
                          <div class="p-food-item style-2">
                               <div class="p-food-inner">
                                    <div class="p-food-thumb">
-                                        <img src="assets/images/popular-food/style-2/01.jpg" alt="p-food">
+                                        <img src="{{ asset('user/assets/images/popular-food/style-2/01.jpg')}}" alt="p-food">
                                    </div>
                                    <div class="p-food-content">
                                         <h6><a href="#">Veggie Tagliatelle Bolognese</a></h6>
@@ -167,7 +167,7 @@
                                         </p>
                                         <div class="p-food-group">
                                              <a href="homechef-single.html" class="user icon">
-                                                  <img src="assets/images/chef/author/user/01.jpg" alt="food-author">
+                                                  <img src="{{ asset('user/assets/images/chef/author/user/01.jpg')}}" alt="food-author">
                                              </a>
                                              <a href="#" class="food-btn"><span>View Recipe</span></a>
                                         </div>

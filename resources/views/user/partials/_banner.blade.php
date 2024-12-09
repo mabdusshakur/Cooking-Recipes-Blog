@@ -2,7 +2,7 @@
      <div class="banner-slider-2">
           <div class="swiper-wrapper">
                <div class="swiper-slide">
-                    <div class="banner-slider-part" style="background-image: url(assets/images/banner/home-4/01.jpg);">
+                    <div class="banner-slider-part" style="background-image: url(user/assets/images/banner/home-4/01.jpg);">
                          <div class="container">
                               <div class="col-xl-6 col-md-10 col-12">
                                    <div class="section-wrapper">
@@ -20,7 +20,7 @@
                     </div>
                </div>
                <div class="swiper-slide">
-                    <div class="banner-slider-part" style="background-image: url(assets/images/banner/home-4/02.jpg);">
+                    <div class="banner-slider-part" style="background-image: url(user/assets/images/banner/home-4/02.jpg);">
                          <div class="container">
                               <div class="col-xl-6 col-md-10 col-12">
                                    <div class="section-wrapper">
@@ -38,7 +38,7 @@
                     </div>
                </div>
                <div class="swiper-slide">
-                    <div class="banner-slider-part" style="background-image: url(assets/images/banner/home-4/03.jpg);">
+                    <div class="banner-slider-part" style="background-image: url(user/assets/images/banner/home-4/03.jpg);">
                          <div class="container">
                               <div class="col-xl-6 col-md-10 col-12">
                                    <div class="section-wrapper">
