@@ -54,7 +54,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Author Middleware
         Route::group(['prefix' => 'author', 'middleware' => 'CheckRole:author'], function () {
             // Update Author Profile
-            Route::put('/', [AuthorController::class, 'update']);
+            Route::put('/profile', [AuthorController::class, 'update']);
 
             // Author Profile
             Route::get('/profile', [AuthorController::class, 'getCurrentAuthorProfile']);

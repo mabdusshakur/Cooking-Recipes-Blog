@@ -112,6 +112,8 @@ class AuthorController extends Controller
             }
 
             $author->update($data);
+
+            return ResponseHelper::sendSuccess('Updated profile successfully',$data, 200);
         } catch (\Throwable $th) {
             Logger::Log($th);
             return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
