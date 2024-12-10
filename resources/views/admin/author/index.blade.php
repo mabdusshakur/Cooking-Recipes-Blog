@@ -61,20 +61,22 @@
             });
 
             $('.approveBtn').on('click', async function() {
-            const author_id = $(this).data('id');
-            const res = await axios.patch(`/api/v1/admin/author/approve`, {author_id});
-            if (res.data && res.data.success == true) {
-                alert(res.data.message);
-                getList();
-            }
-        })
-        
-        new DataTable('#tableData', {
-            order: [
-                [0, 'desc']
-            ],
-            lengthMenu: [5, 10, 15, 20, 30]
-        });
+                const author_id = $(this).data('id');
+                const res = await axios.patch(`/api/v1/admin/author/approve`, {
+                    author_id
+                });
+                if (res.data && res.data.success == true) {
+                    alert(res.data.message);
+                    getList();
+                }
+            })
+
+            new DataTable('#tableData', {
+                order: [
+                    [0, 'desc']
+                ],
+                lengthMenu: [5, 10, 15, 20, 30]
+            });
         }
     </script>
 @endsection
