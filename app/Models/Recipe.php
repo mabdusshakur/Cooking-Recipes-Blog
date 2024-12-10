@@ -9,15 +9,16 @@ class Recipe extends BaseModel
         'prepare_time',
         'difficulty',
         'serving',
-        'profile_title',
         'main_image',
         'long_description',
         'short_description',
         'author_id',
         'category_id',
         'is_active',
-        'is_deleted'
+        'is_deleted',
+        'is_featured',
     ];
+    
 
     // Relationships
     public function author()
@@ -44,5 +45,9 @@ class Recipe extends BaseModel
     public function nutritionalValues()
     {
         return $this->hasMany(NutritionalValue::class);
+    }
+    public function featuredRecipe()
+    {
+        return $this->hasOne(FeaturedRecipe::class);
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\V1\RecipeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\AuthorController;
+use App\Http\Controllers\Api\V1\RecipeController;
+use App\Http\Controllers\Api\V1\BlogPostController;
+use App\Http\Controllers\Api\V1\UserDashboardController;
 use App\Http\Controllers\Api\V1\RecipeCategoryController;
 use App\Http\Controllers\Api\V1\BlogPostCategoryController;
-use App\Http\Controllers\Api\V1\BlogPostController;
 
 Route::group(['prefix' => 'v1'], function () {
    
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'api'], function () {
         // Auth Routes
         Route::post('auth/logout', [AuthController::class, 'logout']);
+        Route::get('/featured-recipes', [UserDashboardController::class, 'getFeaturedRecipes']);
+
 
         // <----- General Routes, can be accessible without authentication for no-auth & auth both users ----->
 

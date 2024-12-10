@@ -37,4 +37,6 @@ class FrontendController extends Controller
         $data['page']='Blog';
         return view('user.blog.show',$data);
     }
+
+    
 }
