@@ -12,6 +12,11 @@ Route::get('/recipes',[FrontendController::class,'recipes']);
 Route::get('/authors',[FrontendController::class,'authors']);
 Route::get('/single-recipe',[FrontendController::class,'singleRecipe']);
 Route::get('/single-blog',[FrontendController::class,'singleBlog']);
+Route::get('/sign-in',[FrontendController::class,'signIn'])->name('front.auth.sign-in');
+Route::get('/sign-up',[FrontendController::class,'signUp'])->name('front.auth.sign-up');
+Route::get('/verify-otp',[FrontendController::class,'verifyOtp'])->name('front.auth.verify-otp');
+Route::get('/user/dashboard',[FrontendController::class,'dashboard'])->name('front.user.dashboard');
+Route::get('/user/profile',[FrontendController::class,'profile'])->name('front.user.profile');
 
 Route::prefix('/author')->group(function () {
     Route::get('/',[AuthorFrontendController::class,'index'])->name('front.author.dashboard');

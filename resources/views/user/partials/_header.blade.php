@@ -21,6 +21,9 @@
                          <li>
                              <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ url('about') }}">About Us</a>
                          </li>
+                         <li>
+                             <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ route('front.auth.sign-in') }}">Sign In</a>
+                         </li>
                      </ul>
                      
                </div>
