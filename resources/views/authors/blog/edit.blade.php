@@ -19,11 +19,6 @@
                             <div class="mb-3">
                                 <label class="form-label" for="category">Category (<a class="text-pink" href="#"> Add New Category </a>)</label>
                                 <select class="form-select" id="category">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
                                 </select>
                             </div>
                         </div>
@@ -40,8 +35,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label" for="imageUpload">Main Image</label>
-                            <input class="form-control" id="imageUpload" type="file" accept="image/*">
+                            <label class="form-label" for="mainImage">Main Image</label>
+                            <input class="form-control" id="mainImage" type="file" accept="image/*">
                         </div>
                         <div class="mb-3">
                             <img id="imagePreview" src="#" alt="Image Preview" style="display: block; max-width: 100%; height: auto;">
@@ -70,6 +65,11 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setCategories();
+            setBlog();
+        });
+
         const id = window.location.pathname.split('/').pop();
 
         const setBlog = async () => {
@@ -82,11 +82,6 @@
             document.getElementById('imagePreview').src = res.main_image;
             document.getElementById('snow-editor').innerHTML = res.content;
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setCategories();
-            setBlog();
-        });
 
         const setCategories = async () => {
             let res = await axios.get("/api/v1/author/blog-category");
@@ -105,19 +100,20 @@
         document.getElementById('updateBlog').addEventListener('click', async function() {
             let title = document.getElementById('title').value;
             let category = document.getElementById('category').value;
-            let mainImage = document.getElementById('imageUpload').files[0];
+            let mainImage = document.getElementById('mainImage').files[0];
             let mainContent = document.getElementById('snow-editor').innerHTML;
 
             let formData = new FormData();
+            formData.append('_method', 'PUT');
             formData.append('title', title);
             formData.append('category_id', category);
-            if(mainImage) {
-                formData.delete('main_image');
+            if (mainImage) {
+                formData.append('main_image', mainImage);
             }
             formData.append('author_id', JSON.parse(localStorage.getItem('user')).id);
             formData.append('content', mainContent);
 
-            let res = await axios.post("/api/v1/author/blog-post", formData, {
+            const res = await axios.post("/api/v1/author/blog-post/" + id, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -129,7 +125,7 @@
             }
         });
 
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
+        document.getElementById('mainImage').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
