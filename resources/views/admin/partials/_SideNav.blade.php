@@ -3,9 +3,16 @@
         <div id="sidebar-menu">
             <ul id="side-menu">
                 <li>
-                    <a href="index.html">
+                    <a href="{{route('front.admin.dashboard')}}">
                         <i class="mdi mdi-view-dashboard-outline"></i>
                         <span> Dashboard </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('front.admin.author.index')}}">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span> Author </span>
                     </a>
                 </li>
 

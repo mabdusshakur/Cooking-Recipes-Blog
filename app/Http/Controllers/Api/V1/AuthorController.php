@@ -20,7 +20,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return ResponseHelper::sendSuccess('Author list', Author::paginate(10), 200);
+        return ResponseHelper::sendSuccess('Author list', Author::with('user:id,name')->paginate(10), 200);
     }
 
     /**

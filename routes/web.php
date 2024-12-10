@@ -49,6 +49,7 @@ Route::prefix('/author')->group(function () {
 //Admin Routes
 Route::prefix('/admin')->group(function () {
     Route::get('/',[AdminFrontendController::class,'index'])->name('front.admin.dashboard');
+    Route::get('/author', [AdminFrontendController::class,'authorIndex'])->name('front.admin.author.index');
 
     Route::prefix('/blog')->group(function () {
 
@@ -63,7 +64,7 @@ Route::prefix('/admin')->group(function () {
 
     Route::prefix('/recipe')->group(function () {
         Route::get('/', [AdminFrontendController::class,'recipeIndex'])->name('front.admin.recipe.index');
-
+        
         Route::prefix('/category')->group(function () {
             Route::get('/', [AdminFrontendController::class,'recipeCategoryIndex'])->name('front.admin.recipe.category.index');
             Route::get('/create', [AdminFrontendController::class,'recipeCategoryCreate'])->name('front.admin.recipe.category.create');
