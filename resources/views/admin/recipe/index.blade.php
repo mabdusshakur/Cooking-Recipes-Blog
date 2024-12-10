@@ -35,38 +35,36 @@
         getList();
 
 
-        async function getList() {
-            let res = await axios.get("/api/v1/admin/recipes");
-            res = res.data[0];
+     function getList() {
+            axios.get("/api/v1/admin/recipes").then(response => {
+                let response = response.data[0];
+                let tableList = $("#tableList");
+                let tableData = $("#tableData");
 
-            let tableList = $("#tableList");
-            let tableData = $("#tableData");
+                tableData.DataTable().destroy();
+                tableList.empty();
 
-            tableData.DataTable().destroy();
-            tableList.empty();
-
-            res.forEach(function(item, index) {
-                let row = ` <tr>
+                response.forEach(item => {
+                    let row = `<tr>
                         <td><img src="${item.main_image}" alt="Thumbnail" width="50"></td>
                         <td>${item.title}</td>
                         <td>
-                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending' }</span>
+                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending'}</span>
                         </td>
                         <td>${new Date(item.created_at).toLocaleDateString()}</td>
                         <td>
-                            <button class="btn btn-sm btn-info waves-effect waves-light" type="button" ${item.is_active == 1 ? 'disabled' : '' }>
+                            <button class="btn btn-sm btn-info" type="button" ${item.is_active == 1 ? 'disabled' : ''}>
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </td>
-                    </tr>`
-                tableList.append(row)
-            })
+                    </tr>`;
+                    tableList.append(row);
+                });
 
-            new DataTable('#tableData', {
-                order: [
-                    [0, 'desc']
-                ],
-                lengthMenu: [5, 10, 15, 20, 30]
+                new DataTable('#tableData', {
+                    order: [[0, 'desc']],
+                    lengthMenu: [5, 10, 15, 20, 30]
+                });
             });
         }
     </script>

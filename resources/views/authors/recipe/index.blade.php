@@ -1,54 +1,85 @@
 @extends('layouts.author')
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body table-responsive">
-                    <h4 class="header-title mt-0">All Recipes</h4>
-                    <p class="text-muted font-14 mb-3">
-                        All your recipes are listed here. You can edit them, as well as create new recipe. <strong>If you need new category for your recipe, you can create them </strong><a href="{{ route('front.author.recipe.category.index') }}">here</a>.
-                    </p>
-
-                    <div class="mb-3 text-end">
-                        <a class="btn btn-sm btn-success waves-effect waves-light" type="button" href="{{ route('front.author.recipe.create') }}">
-                            <i class="mdi mdi-plus"></i>
-                        </a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="card px-5 py-5">
+                    <div class="row justify-content-between">
+                        <div class="align-items-center col">
+                            <h4>Blog</h4>
+                        </div>
+                        <div class="mb-3 text-end">
+                            <a class="btn btn-sm btn-success waves-effect waves-light" type="button" href="{{ route('front.author.recipe.create') }}">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
                     </div>
-                    <table class="table-bordered table-bordered dt-responsive nowrap table" id="responsive-datatable">
-                        <thead>
-                            <tr>
-                                <th>Thumb</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Submit Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                    <hr class="bg-secondary" />
+                    <div class="table-responsive">
+                        <table class="table" id="tableData">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th>Thumb</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Submit Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableList">
 
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img class="img-fluid avatar-sm rounded" src="{{ asset('dashboard/assets/images/users/user-5.jpg') }}" alt="image">
-                                </td>
-                                <td>Tiger Nixon</td>
-                                <td>
-                                    <span class="badge bg-success">Approved</span>
-                                    <span class="badge bg-info">Pending</span>
-                                </td>
-                                <td>2024/11/12</td>
-                                <td>
-                                    <a class="btn btn-sm btn-danger waves-effect waves-light" type="button">
-                                        <i class="mdi mdi-close"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-info waves-effect waves-light" type="button">
-                                        <i class="mdi mdi-pen"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        getList();
+
+
+        async function getList() {
+            const res = await axios.get("/api/v1/author/recipes");
+            console.log(res);
+            res = res.data[0];
+
+            let tableList = $("#tableList");
+            let tableData = $("#tableData");
+
+            tableData.DataTable().destroy();
+            tableList.empty();
+
+            res.forEach(function(item, index) {
+                let row = ` <tr>
+                        <td><img src="${item.main_image}" alt="Thumbnail" width="50"></td>
+                        <td>${item.title}</td>
+                        <td>
+                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending' }</span>
+                        </td>
+                        <td>${new Date(item.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info waves-effect waves-light editBtn" type="button" data-id="${item.id}">
+                                <i class="mdi mdi-pen"></i>
+                            </button>
+                        </td>
+                    </tr>`
+                tableList.append(row)
+            })
+
+            
+            $('.editBtn').on('click', async function() {
+                const id = $(this).data('id');
+                window.location.href = `{{route('front.author.recipe.edit')}}/${id}`;
+            })
+
+            new DataTable('#tableData', {
+                order: [
+                    [0, 'desc']
+                ],
+                lengthMenu: [5, 10, 15, 20, 30]
+            });
+        }
+    </script>
 @endsection
