@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.author')
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -7,6 +7,11 @@
                     <div class="row justify-content-between">
                         <div class="align-items-center col">
                             <h4>Blog</h4>
+                        </div>
+                        <div class="mb-3 text-end">
+                            <a class="btn btn-sm btn-success waves-effect waves-light" type="button" href="{{ route('front.author.blog.create') }}">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
                         </div>
                     </div>
                     <hr class="bg-secondary" />
@@ -54,12 +59,18 @@
                         </td>
                         <td>${new Date(item.created_at).toLocaleDateString()}</td>
                         <td>
-                            <button class="btn btn-sm btn-info waves-effect waves-light" type="button" data-id="${item.id}">
-                                <i class="mdi mdi-x"></i>
+                            <button class="btn btn-sm btn-info waves-effect waves-light editBtn" type="button" data-id="${item.id}">
+                                <i class="mdi mdi-pen"></i>
                             </button>
                         </td>
                     </tr>`
                 tableList.append(row)
+            })
+
+            
+            $('.editBtn').on('click', async function() {
+                const id = $(this).data('id');
+                window.location.href = `{{route('front.author.blog.edit')}}/${id}`;
             })
 
             new DataTable('#tableData', {

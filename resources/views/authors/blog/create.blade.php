@@ -17,13 +17,8 @@
 
                         <div class="col-lg-4">
                             <div class="mb-3">
-                                <label class="form-label" for="category">Category (<a href="{{route('front.author.blog.category.index')}}" class="text-pink"> Add New Category </a>)</label>
+                                <label class="form-label" for="category">Category (<a class="text-pink" href="{{ route('front.author.blog.category.index') }}"> Add New Category </a>)</label>
                                 <select class="form-select" id="category">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
                                 </select>
                             </div>
                         </div>
@@ -64,12 +59,56 @@
 
         <div class="col-12">
             <div class="text-end">
-                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-success" id="submitBlog" type="submit">Submit</button>
             </div>
         </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setCategories();
+        });
+
+        const setCategories = async () => {
+            let res = await axios.get("/api/v1/author/blog-category");
+            res = res.data[0];
+            let category = $("#category");
+
+            category.empty();
+
+            res.forEach(function(item, index) {
+                let option = `<option value="${item.id}">${item.name}</option>`;
+                category.append(option);
+            })
+        }
+
+
+        document.getElementById('submitBlog').addEventListener('click', async function() {
+            let title = document.getElementById('title').value;
+            let category = document.getElementById('category').value;
+            let mainImage = document.getElementById('blogMainImage').files[0];
+            let mainContent = document.getElementById('snow-editor').innerHTML;
+
+            let formData = new FormData();
+            formData.append('title', title);
+            formData.append('category_id', category);
+            formData.append('main_image', mainImage);
+            formData.append('author_id', JSON.parse(localStorage.getItem('user')).id);
+            formData.append('content', mainContent);
+
+            let res = await axios.post("/api/v1/author/blog-post", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log(res.data);
+            if (res.data.success == true) {
+                window.location.href = "{{ route('front.author.blog.index') }}";
+            }
+        });
+
+
         document.getElementById('blogMainImage').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
