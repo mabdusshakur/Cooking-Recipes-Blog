@@ -14,6 +14,24 @@
     <link href="{{ asset('user/assets/css/swiper.min.css') }}" rel="stylesheet">
     <link href="{{ asset('user/assets/css/style.css') }}" rel="stylesheet">
     <title>Recipe Blog</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+
+        axios.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '{{route('front.auth.sign-in')}}';
+            }
+            return Promise.reject(error);
+        });
+    </script>
+    
 </head>
 <body>
   
@@ -38,6 +56,7 @@
 <script src="{{ asset('user/assets/js/lightcase.js') }}"></script>
 <script src="{{ asset('user/assets/js/jquery.counterup.min.js') }}"></script>
 <script src="{{ asset('user/assets/js/functions.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

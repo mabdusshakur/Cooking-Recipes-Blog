@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->integer('otp')->default(0);
             $table->enum('role', ['user', 'admin', 'author'])->default('user');
-            $table->enum('status', ['pending', 'approved'])->default('pending');
             $table->timestamps();
   
         });

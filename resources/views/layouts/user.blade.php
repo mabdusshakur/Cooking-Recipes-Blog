@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Adminto - Responsive Admin Dashboard Template</title>
+    <title>User | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
     <meta name="author" content="Coderthemes" />
@@ -23,8 +23,7 @@
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link id="app-style" type="text/css" href="{{ asset('dashboard/assets/css/app.min.css') }}" rel="stylesheet" />
     <link type="text/css" href="{{ asset('dashboard/assets/css/icons.min.css') }}" rel="stylesheet" />
-
-       
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
@@ -41,7 +40,6 @@
             return Promise.reject(error);
         });
     </script>
-    
 </head>
 
 <body>
@@ -50,11 +48,11 @@
     <div id="wrapper">
 
         <!-- Topbar Start -->
-        @include('authors.partials._TopNav')
+        @include('user.partials._TopNav')
         <!-- end Topbar -->
 
         <!-- ========== Left Sidebar Start ========== -->
-        @include('authors.partials._SideNav')
+        @include('user.partials._SideNav')
         <!-- Left Sidebar End -->
 
         <!-- ============================================================== -->
@@ -117,6 +115,7 @@
     <script src="{{ asset('dashboard/assets/libs/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/pages/dashboard.init.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/app.js') }}"></script>
+
 
 </body>
 

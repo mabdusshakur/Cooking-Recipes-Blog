@@ -18,27 +18,22 @@
                          <li>
                              <a class="{{ request()->is('authors') ? 'active' : '' }}" href="{{ url('authors') }}">Authors</a>
                          </li>
-                         <li>
-                             <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ url('about') }}">About Us</a>
+                         <li class="sign-in-tab">
+                             <a class="{{ request()->is('about') ? 'active' : '' }}" href="{{ route('front.auth.sign-in') }}">Sign In</a>
                          </li>
                      </ul>
                      
                </div>
-               <div class="author-option">
-                    <div class="author-area">
-                         <div class="author-account">
-                              <div class="author-icon">
-                                   <img src="{{ asset('user/assets/images/chef/author/08.jpg') }}" alt="author">
-                              </div>
-                              <div class="author-select">
-                                   <select name="author-select" id="author-select">
-                                        <option value="1">My Account </option>
-                                        <option value="2">Log Out </option>
-                                   </select>
-                              </div>
-                         </div>
-                    </div>
-               </div>
           </div>
      </div>
 </header>
+
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+          const user = JSON.parse(localStorage.getItem('user'));
+          const signInTab = document.querySelector('.sign-in-tab');
+          if(user && user.name) {
+               signInTab.innerHTML = `<a href="{{ route('front.user.profile') }}">{ Profile }</a>`;
+          }
+     });
+</script>

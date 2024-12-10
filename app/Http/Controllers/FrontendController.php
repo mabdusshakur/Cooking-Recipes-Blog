@@ -38,5 +38,23 @@ class FrontendController extends Controller
         return view('user.blog.show',$data);
     }
 
+    public function signIn(){
+        return view('user.auth.sign-in');
+    }
     
+    public function signUp(){
+        return view('user.auth.sign-up'); 
+    }
+
+    public function verifyOtp(){
+        return view('user.auth.verify-otp'); 
+    }
+
+    public function dashboard(){
+        return view('user.dashboard'); 
+    }
+
+    public function profile(){
+        return view('user.profile'); 
+    }
 }

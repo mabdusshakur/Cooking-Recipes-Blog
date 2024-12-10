@@ -40,7 +40,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Recipe Routes (Show All, Show One)
         Route::apiResource('/recipes', RecipeController::class)->only('index', 'show');
-
+        
+        // General Profile
+        Route::get('/profile', [AuthController::class, 'profile']);
 
         // User Middleware
         Route::group(['prefix' => 'user', 'middleware' => 'CheckRole:user'], function () {
@@ -76,6 +78,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Admin Middleware
         Route::group(['prefix' => 'admin', 'middleware' => 'CheckRole:admin'], function () {
+            // Admin Profile
+            Route::get('/profile', [AuthController::class, 'profile']);
+
             // Author (Show All, Create, Delete)Routes
             Route::apiResource('/author', AuthorController::class)->only('index', 'store', 'destroy');
 

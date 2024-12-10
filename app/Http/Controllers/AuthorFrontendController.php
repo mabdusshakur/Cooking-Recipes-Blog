@@ -11,7 +11,10 @@ class AuthorFrontendController extends Controller
         return view('authors.dashboard');
     }
 
-
+    public function profile()
+    {
+        return view('authors.profile');
+    }
 
     // Blog
     public function blogIndex()
