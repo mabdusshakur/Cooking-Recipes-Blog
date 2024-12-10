@@ -1,14 +1,6 @@
 <div class="navbar-custom">
     <div class="container-fluid ps-0">
         <ul class="list-unstyled topnav-menu float-end mb-0">
-            
-            <li class="notification-list d-none d-lg-block">
-                <a href="javascript:void(0);" class="nav-link waves-effect waves-light" id="light-dark-mode"
-                    type="button">
-                    <i class="fe-sun noti-icon"></i>
-                </a>
-            </li>
-
             <li class="dropdown notification-list topbar-dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown"
                     href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -25,7 +17,7 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a href="auth-logout.html" class="dropdown-item notify-item">
+                    <a class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -46,3 +38,18 @@
         <div class="clearfix"></div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userNameElement = document.querySelector('.pro-user-name');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.name) {
+            userNameElement.innerHTML = `${user.name} <i class="mdi mdi-chevron-down"></i>`;
+        }
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '{{ route('front.auth.sign-in') }}';
+        });
+    });
+</script>

@@ -72,17 +72,38 @@
         const password = document.getElementById('password');
         const signInBtn = document.getElementById('sign-in-btn');
 
-        signInBtn.addEventListener('click', function() {
+        signInBtn.addEventListener('click', async function() {
             const data = {
                 email: email.value,
                 password: password.value
             };
 
-            axios.post('/api/v1/auth/login', data).then(function(response) {
+            await axios.post('/api/v1/auth/login', data).then(async function(response) {
                 if (response.data && response.data.access_token) {
                     alert('Login successful');
                     localStorage.setItem('token', response.data.access_token);
-                    window.location.href = '{{ route('front.user.dashboard') }}';
+                    console.log(response.data);
+
+                    await axios.get('/api/v1/profile', {
+                        headers: {
+                            'Authorization' : 'Bearer ' + localStorage.getItem('token')
+                        }
+                    }).then(function(response) {
+                        console.log(response.data);
+                        localStorage.setItem('user', JSON.stringify(response.data[0]));
+                    }).catch(function(error) {
+                        console.log(error.response.data);
+                    });
+
+                    const role = JSON.parse(localStorage.getItem('user')).role;
+
+                    if (role == 'admin') {
+                        window.location.href = '{{ route('front.admin.dashboard') }}';
+                    } else if (role == 'author') {
+                        window.location.href = '{{ route('front.author.dashboard') }}';
+                    } else {
+                        window.location.href = '{{ route('front.user.dashboard') }}';
+                    }
                 }
             }).catch(function(error) {
                 console.log(error.response.data);

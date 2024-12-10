@@ -16,7 +16,7 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item notify-item" href="auth-logout.html">
+                    <a class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -44,5 +44,11 @@
         if (user && user.name) {
             userNameElement.innerHTML = `${user.name} <i class="mdi mdi-chevron-down"></i>`;
         }
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '{{ route('front.auth.sign-in') }}';
+        });
     });
 </script>

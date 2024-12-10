@@ -23,6 +23,25 @@
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link id="app-style" type="text/css" href="{{ asset('dashboard/assets/css/app.min.css') }}" rel="stylesheet" />
     <link type="text/css" href="{{ asset('dashboard/assets/css/icons.min.css') }}" rel="stylesheet" />
+
+       
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+
+        axios.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '{{route('front.auth.sign-in')}}';
+            }
+            return Promise.reject(error);
+        });
+    </script>
+    
 </head>
 
 <body>

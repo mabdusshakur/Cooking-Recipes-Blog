@@ -18,11 +18,32 @@
     <link type="text/css" href="{{ asset('dashboard/assets/libs/quill/quill.core.css') }}" rel="stylesheet" />
     <link type="text/css" href="{{ asset('dashboard/assets/libs/quill/quill.snow.css') }}" rel="stylesheet" />
 
+    <link href="{{ asset('assets/jquery.dataTables.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery.dataTables.min.js') }}"></script>
+
     <link href="{{ asset('dashboard/assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link id="app-style" type="text/css" href="{{ asset('dashboard/assets/css/app.min.css') }}" rel="stylesheet" />
     <link type="text/css" href="{{ asset('dashboard/assets/css/icons.min.css') }}" rel="stylesheet" />
+           
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+
+        axios.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '{{route('front.auth.sign-in')}}';
+            }
+            return Promise.reject(error);
+        });
+    </script>
 </head>
 
 <body>
@@ -65,7 +86,7 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
-    <script src="{{ asset('dashboard/assets/libs/jquery/jquery.min.js') }}"></script>
+
     <script src="{{ asset('dashboard/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/libs/node-waves/waves.min.js') }}"></script>
@@ -73,20 +94,6 @@
     <script src="{{ asset('dashboard/assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/libs/feather-icons/feather.min.js') }}"></script>
 
-    <script src="{{ asset('dashboard/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/js/pages/datatables.init.js') }}"></script>
 
     <script src="{{ asset('dashboard/assets/libs/quill/quill.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/pages/form-quilljs.init.js') }}"></script>

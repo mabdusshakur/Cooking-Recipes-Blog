@@ -1,45 +1,76 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="row">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="card px-5 py-5">
+                    <div class="row justify-content-between">
+                        <div class="align-items-center col">
+                            <h4>Recipe Category</h4>
+                        </div>
+                        <div class="align-items-center col">
+                            <button class="float-end btn bg-success m-0 text-white" data-bs-toggle="modal" data-bs-target="#recipe-category-modal">Create</button>
+                        </div>
+                    </div>
+                    <hr class="bg-secondary" />
+                    <div class="table-responsive">
+                        <table class="table" id="tableData">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Submit Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableList">
 
-        <div class="card">
-            <div class="card-body table-responsive">
-                <h4 class="header-title mt-0">All Recipe Categories</h4>
-                <p class="text-muted font-14 mb-3">
-                    All the available recipe categories are listed here. If you need a new category you can create one too.
-                </p>
-
-              
-                <table class="table-bordered table-bordered dt-responsive nowrap table" id="responsive-datatable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                            <th>Submit Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>
-                                <span class="badge bg-success">Approved</span>
-                                <span class="badge bg-info">Pending</span>
-                            </td>
-                            <td>2024/11/12</td>
-                            <td>
-                                   
-                                <a class="btn btn-sm btn-info waves-effect waves-light" type="button">
-                                    <i class="mdi mdi-check"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        getList();
+
+
+        async function getList() {
+            let res = await axios.get("/api/v1/admin/recipe-category");
+            res = res.data[0];
+
+            let tableList = $("#tableList");
+            let tableData = $("#tableData");
+
+            tableData.DataTable().destroy();
+            tableList.empty();
+
+            res.forEach(function(item, index) {
+                let row = ` <tr>
+                        <td>${item.name}</td>
+                        <td>
+                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending' }</span>
+                        </td>
+                        <td>${new Date(item.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info waves-effect waves-light" type="button" ${item.is_active == 1 ? 'disabled' : '' }>
+                                <i class="mdi mdi-check"></i>
+                            </button>
+                        </td>
+                    </tr>`
+                tableList.append(row)
+            })
+
+            new DataTable('#tableData', {
+                order: [
+                    [0, 'desc']
+                ],
+                lengthMenu: [5, 10, 15, 20, 30]
+            });
+        }
+    </script>
 @endsection
 
-@include('authors.recipe.category.create')
+@include('admin.recipe.category.create')
