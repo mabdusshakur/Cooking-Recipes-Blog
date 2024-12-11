@@ -6,10 +6,7 @@
                 <div class="card px-5 py-5">
                     <div class="row justify-content-between">
                         <div class="align-items-center col">
-                            <h4>Recipe Category</h4>
-                        </div>
-                        <div class="align-items-center col">
-                            <button class="float-end btn bg-success m-0 text-white" data-bs-toggle="modal" data-bs-target="#recipe-category-modal">Create</button>
+                            <h4>Authors</h4>
                         </div>
                     </div>
                     <hr class="bg-secondary" />
@@ -38,8 +35,8 @@
 
 
         async function getList() {
-            let res = await axios.get("/api/v1/admin/recipe-category");
-            res = res.data[0];
+            let res = await axios.get("/api/v1/admin/author");
+            res = res.data[0].data;
 
             let tableList = $("#tableList");
             let tableData = $("#tableData");
@@ -49,7 +46,7 @@
 
             res.forEach(function(item, index) {
                 let row = ` <tr>
-                        <td>${item.name}</td>
+                        <td>${item.user.name}</td>
                         <td>
                             <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending' }</span>
                         </td>
@@ -61,12 +58,12 @@
                         </td>
                     </tr>`
                 tableList.append(row)
-            })
+            });
 
             $('.approveBtn').on('click', async function() {
-                const id = $(this).data('id');
-                const res = await axios.put(`/api/v1/admin/recipe-category/${id}`, {
-                    is_active: true
+                const author_id = $(this).data('id');
+                const res = await axios.patch(`/api/v1/admin/author/approve`, {
+                    author_id
                 });
                 if (res.data && res.data.success == true) {
                     alert(res.data.message);
@@ -83,5 +80,3 @@
         }
     </script>
 @endsection
-
-@include('admin.recipe.category.create')

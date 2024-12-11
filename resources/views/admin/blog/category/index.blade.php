@@ -55,12 +55,24 @@
                         </td>
                         <td>${new Date(item.created_at).toLocaleDateString()}</td>
                         <td>
-                            <button class="btn btn-sm btn-info waves-effect waves-light" type="button" ${item.is_active == 1 ? 'disabled' : '' }>
+                            <button class="btn btn-sm btn-info waves-effect waves-light approveBtn" data-id="${item.id}" type="button" ${item.is_active == 1 ? 'disabled' : '' }>
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </td>
                     </tr>`
                 tableList.append(row)
+            })
+
+
+            $('.approveBtn').on('click', async function() {
+                const id = $(this).data('id');
+                const res = await axios.put(`/api/v1/admin/blog-category/${id}`, {
+                    is_active: true
+                });
+                if (res.data && res.data.success == true) {
+                    alert(res.data.message);
+                    getList();
+                }
             })
 
             new DataTable('#tableData', {

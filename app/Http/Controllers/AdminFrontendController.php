@@ -11,6 +11,10 @@ class AdminFrontendController extends Controller
         return view('admin.dashboard');
     }
 
+    public function authorIndex()
+    {
+        return view('admin.author.index');
+    }
 
 
     // Blog

@@ -6,13 +6,36 @@
                 <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
             <div class="modal-body">
-               <input type="text" class="form-control" name="blog_category_name" id="blog_category_name" placeholder="Category Name">
+                <input class="form-control" id="blog_category_name" name="blog_category_name" type="text" placeholder="Category Name">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" id="addCategoryBtn" type="button">
                     Submit
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const data = {
+            name: document.getElementById('blog_category_name').value,
+            is_active: false,
+        };
+
+        document.getElementById('addCategoryBtn').addEventListener('click', function() {
+            axios.post('/api/v1/author/blog-category', data).then(function(response) {
+                console.log(response.data);
+                if (response.data && response.data.success == true) {
+                    alert(response.data.message);
+                    document.getElementById('blog_category_name').value = '';
+                    document.querySelector('.btn-close').click();
+                    getList();
+                }
+            }).catch(function(error) {
+                console.log(error.response.data);
+            });
+        });
+    });
+</script>

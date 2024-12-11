@@ -15,9 +15,9 @@ class StoreRecipeRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'prepare_time' => 'required|integer',
+            'prepare_time' => 'required|string',
             'difficulty' => 'required|string|max:50',
-            'serving' => 'required|integer',
+            'serving' => 'required|string',
             'main_image' => 'required|image',
             'long_description' => 'required|string',
             'short_description' => 'required|string|max:500',
