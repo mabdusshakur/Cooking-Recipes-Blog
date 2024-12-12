@@ -95,9 +95,15 @@ class RecipeController extends Controller
             }
 
             $recipe->update($data);
-            $recipe->equipments()->sync($data['equipments']);
-            $recipe->ingredients()->sync($data['ingredients']);
-            $recipe->nutritionalValues()->sync($data['nutritionalValues']);
+            if (isset($data['equipments'])) {
+                $recipe->equipments()->sync($data['equipments']);
+            }
+            if (isset($data['ingredients'])) {
+                $recipe->ingredients()->sync($data['ingredients']);
+            }
+            if (isset($data['nutritionalValues'])) {
+                $recipe->nutritionalValues()->sync($data['nutritionalValues']);
+            }
             return ResponseHelper::sendSuccess('Recipe was submitted for approval successfully', null, 201);
         } catch (\Throwable $th) {
             Logger::Log($th);
