@@ -10,7 +10,7 @@ Route::get('/about',[FrontendController::class,'about']);
 Route::get('/blog',[FrontendController::class,'blog']);
 Route::get('/recipes',[FrontendController::class,'recipes']);
 Route::get('/authors',[FrontendController::class,'authors']);
-Route::get('/single-recipe',[FrontendController::class,'singleRecipe']);
+Route::get('/single-recipe/{recipe}',[FrontendController::class,'singleRecipe']);
 Route::get('/single-blog',[FrontendController::class,'singleBlog']);
 Route::get('/sign-in',[FrontendController::class,'signIn'])->name('front.auth.sign-in');
 Route::get('/sign-up',[FrontendController::class,'signUp'])->name('front.auth.sign-up');
