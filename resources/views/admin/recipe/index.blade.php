@@ -6,7 +6,7 @@
                 <div class="card px-5 py-5">
                     <div class="row justify-content-between">
                         <div class="align-items-center col">
-                            <h4>Recipe</h4>
+                            <h4>Blog</h4>
                         </div>
                     </div>
                     <hr class="bg-secondary" />
@@ -35,36 +35,51 @@
         getList();
 
 
-     function getList() {
-            axios.get("/api/v1/admin/recipes").then(response => {
-                let response = response.data[0];
-                let tableList = $("#tableList");
-                let tableData = $("#tableData");
+        async function getList() {
+            let res = await axios.get("/api/v1/admin/recipes");
+            res = res.data.data;
+            console.log(res);
 
-                tableData.DataTable().destroy();
-                tableList.empty();
+            let tableList = $("#tableList");
+            let tableData = $("#tableData");
 
-                response.forEach(item => {
-                    let row = `<tr>
+            tableData.DataTable().destroy();
+            tableList.empty();
+
+            res.forEach(function(item, index) {
+                let row = ` <tr>
                         <td><img src="${item.main_image}" alt="Thumbnail" width="50"></td>
                         <td>${item.title}</td>
                         <td>
-                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending'}</span>
+                            <span class="badge ${item.is_active == 1 ? 'bg-success' : 'bg-info'}">${item.is_active == 1 ? 'Approved' : 'Pending' }</span>
                         </td>
                         <td>${new Date(item.created_at).toLocaleDateString()}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info" type="button" ${item.is_active == 1 ? 'disabled' : ''}>
+                       <td>
+                            <button class="btn btn-sm btn-info waves-effect waves-light approveBtn" data-id="${item.id}" type="button" ${item.is_active == 1 ? 'disabled' : '' }>
                                 <i class="mdi mdi-check"></i>
                             </button>
                         </td>
-                    </tr>`;
-                    tableList.append(row);
-                });
+                    </tr>`
+                tableList.append(row)
+            })
 
-                new DataTable('#tableData', {
-                    order: [[0, 'desc']],
-                    lengthMenu: [5, 10, 15, 20, 30]
+            $('.approveBtn').on('click', async function() {
+                const id = $(this).data('id');
+                const res = await axios.put(`/api/v1/admin/recipes/${id}`, {
+                    is_active: true
                 });
+                if (res.data && res.data.success == true) {
+                    alert(res.data.message);
+                    getList();
+                }
+            })
+
+
+            new DataTable('#tableData', {
+                order: [
+                    [0, 'desc']
+                ],
+                lengthMenu: [5, 10, 15, 20, 30]
             });
         }
     </script>

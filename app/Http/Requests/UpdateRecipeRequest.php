@@ -11,7 +11,7 @@ class UpdateRecipeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,27 +22,27 @@ class UpdateRecipeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'prepare_time' => 'required|integer',
-            'difficulty' => 'required|string|max:50',
-            'serving' => 'required|integer',
-            'main_image' => 'required|image',
-            'long_description' => 'required|string',
-            'short_description' => 'required|string|max:500',
-            'category_id' => 'required|exists:recipe_categories,id',
-            'author_id' => 'required|exists:authors,id',
+            'title' => 'nullable|string|max:255',
+            'prepare_time' => 'nullable|integer',
+            'difficulty' => 'nullable|string|max:50',
+            'serving' => 'nullable|integer',
+            'main_image' => 'nullable|image',
+            'long_description' => 'nullable|string',
+            'short_description' => 'nullable|string|max:500',
+            'category_id' => 'nullable|exists:recipe_categories,id',
+            'author_id' => 'nullable|exists:authors,id',
             'is_active' => 'nullable|in:0,1',
 
-            'ingredients' => 'required|array',
-            'ingredients.*.name' => 'required|string',
-            'ingredients.*.quantity' => 'required|numeric',
+            'ingredients' => 'nullable|array',
+            'ingredients.*.name' => 'nullable|string',
+            'ingredients.*.quantity' => 'nullable|numeric',
 
-            'equipments' => 'required|array',
-            'equipments.*.name' => 'required|string',
+            'equipments' => 'nullable|array',
+            'equipments.*.name' => 'nullable|string',
 
-            'NutritionalValues' => 'required|array',
-            'NutritionalValues.*.name' => 'required|string',
-            'NutritionalValues.*.amount' => 'required|numeric',
+            'NutritionalValues' => 'nullable|array',
+            'NutritionalValues.*.name' => 'nullable|string',
+            'NutritionalValues.*.amount' => 'nullable|numeric',
             'NutritionalValues.*.calorie_per_gram' => 'nullable|numeric',
         ];
     }

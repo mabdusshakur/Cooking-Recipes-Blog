@@ -41,9 +41,9 @@
 
 
         async function getList() {
-            const res = await axios.get("/api/v1/author/recipes");
+            let res = await axios.get("/api/v1/author/recipes");
+            res = res.data.data;
             console.log(res);
-            res = res.data[0];
 
             let tableList = $("#tableList");
             let tableData = $("#tableData");
