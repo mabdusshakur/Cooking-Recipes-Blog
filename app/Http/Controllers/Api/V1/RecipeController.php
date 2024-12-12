@@ -19,13 +19,17 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        if(auth('api')->user()->role == 'admin') {
+        $user = auth('api')->user();
+    
+        if ($user && $user->role == 'admin') {
             $recipes = Recipe::paginate(10);
         } else {
             $recipes = Recipe::active()->paginate(10);
         }
+    
         return RecipeResource::collection($recipes->load(['recipeCategory', 'ingredients', 'nutritionalValues']));
     }
+    
 
     /**
      * Store a newly created resource in storage.

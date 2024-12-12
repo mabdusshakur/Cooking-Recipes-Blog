@@ -17,11 +17,13 @@ class RecipeCategoryController extends Controller
     public function index()
     {
         try {
-            $user = auth('api')->user();
-            $recipeCategories = $user->role == 'admin'
+            $user = auth('api')->user(); 
+            $isAdmin = $user && $user->role == 'admin'; 
+    
+            $recipeCategories = $isAdmin
                 ? RecipeCategory::all()
                 : RecipeCategory::active()->get();
-
+    
             return ResponseHelper::sendSuccess(
                 'Recipe categories fetched successfully.',
                 RecipeCategoryResource::collection($recipeCategories),
@@ -32,6 +34,8 @@ class RecipeCategoryController extends Controller
             return ResponseHelper::sendError('Failed to fetch recipe categories.', $th->getMessage(), 500);
         }
     }
+    
+
 
     /**
      * Store a newly created resource in storage.
