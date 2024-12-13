@@ -55,7 +55,7 @@ class RecipeController extends Controller
 
 
             // dd($data['equipments']);
-            // $recipe->equipments()->createMany($data['equipments']);
+            $recipe->equipments()->createMany($data['equipments']);
             $recipe->ingredients()->createMany($data['ingredients']);
             $recipe->nutritionalValues()->createMany($data['NutritionalValues']);
 
