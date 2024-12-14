@@ -163,25 +163,25 @@
                 document.getElementById('add-ingredient').parentNode.insertBefore(row, document.getElementById('add-ingredient'));
             });
 
-            // res.equipments.forEach((equipment, index) => {
-            //     const row = document.createElement('div');
-            //     row.classList.add('row', 'mb-3', 'equipment-row');
+            res.equipments.forEach((equipment, index) => {
+                const row = document.createElement('div');
+                row.classList.add('row', 'mb-3', 'equipment-row');
 
-            //     const equipmentContainer = document.createElement('div');
-            //     equipmentContainer.classList.add('col-lg-4');
+                const equipmentContainer = document.createElement('div');
+                equipmentContainer.classList.add('col-lg-4');
 
-            //     const equipmentNameInput = document.createElement('input');
-            //     equipmentNameInput.classList.add('form-control');
-            //     equipmentNameInput.type = 'text';
-            //     equipmentNameInput.placeholder = 'Equipment Name';
-            //     equipmentNameInput.value = equipment.name;
+                const equipmentNameInput = document.createElement('input');
+                equipmentNameInput.classList.add('form-control');
+                equipmentNameInput.type = 'text';
+                equipmentNameInput.placeholder = 'Equipment Name';
+                equipmentNameInput.value = equipment.name;
 
-            //     equipmentContainer.appendChild(equipmentNameInput);
+                equipmentContainer.appendChild(equipmentNameInput);
 
-            //     row.appendChild(equipmentContainer);
+                row.appendChild(equipmentContainer);
 
-            //     document.getElementById('add-equipment').parentNode.insertBefore(row, document.getElementById('add-equipment'));
-            // });
+                document.getElementById('add-equipment').parentNode.insertBefore(row, document.getElementById('add-equipment'));
+            });
 
             res.NutritionalValues.forEach((nutritionalValue, index) => {
                 const row = document.createElement('div');
