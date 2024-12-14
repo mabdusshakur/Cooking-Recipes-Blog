@@ -71,7 +71,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients','equipments', 'nutritionalValues'])), 200);
+        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients','equipments', 'nutritionalValues','author'])), 200);
     }
 
     /**
@@ -138,4 +138,21 @@ class RecipeController extends Controller
             return ResponseHelper::sendError('Failed to delete recipe', $th->getMessage(), 500);
         }
     }
+
+
+    public function getRelatedRecipes($recipeId)
+    {
+        $recipe = Recipe::findOrFail($recipeId);
+        $relatedRecipes = Recipe::where('category_id', $recipe->category_id)
+            ->where('id', '!=', $recipeId)  
+            ->take(4)  
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $relatedRecipes
+        ]);
+    }
 }
+
+

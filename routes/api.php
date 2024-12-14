@@ -40,7 +40,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Recipe Routes (Show All, Show One)
         Route::apiResource('/recipes', RecipeController::class)->only('index', 'show');
-        
+        //related recipe
+        Route::get('/recipes/{recipeId}/related', [RecipeController::class, 'getRelatedRecipes']);
+
         // General Profile
         Route::get('/profile', [AuthController::class, 'profile']);
 

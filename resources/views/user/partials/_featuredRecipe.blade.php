@@ -19,25 +19,25 @@
 
 @section('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        fetchFeaturedRecipes();
+    document.addEventListener('DOMContentLoaded', async function () {
+        await fetchFeaturedRecipes();
     });
 
-    function fetchFeaturedRecipes() {
+    async function fetchFeaturedRecipes() {
         const featuredRecipesContainer = document.getElementById('featured-recipes');
         featuredRecipesContainer.innerHTML = ''; 
 
-        fetch('{{ url("/api/v1/featured-recipes") }}')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.data && data.data.length > 0) {
-                    data.data.forEach(recipe => {
-                        const recipeHTML = `
+        try {
+            const response = await fetch('{{ url("/api/v1/featured-recipes") }}');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.data && data.data.length > 0) {
+                data.data.forEach(recipe => {
+                    const recipeHTML = `
                         <div class="swiper-slide">
                             <div class="col-lg-6 col-12">
                                 <div class="p-food-item style-2">
@@ -73,17 +73,17 @@
                                 </div>
                             </div>
                         </div>
-                        `;
-                        featuredRecipesContainer.innerHTML += recipeHTML;
-                    });
-                } else {
-                    featuredRecipesContainer.innerHTML = `<p class="text-center">No featured recipes available.</p>`;
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching featured recipes:', error);
-                featuredRecipesContainer.innerHTML = `<p class="text-center text-danger">Failed to load recipes. Please try again later.</p>`;
-            });
+                    `;
+                    featuredRecipesContainer.innerHTML += recipeHTML;
+                });
+            } else {
+                featuredRecipesContainer.innerHTML = `<p class="text-center">No featured recipes available.</p>`;
+            }
+        } catch (error) {
+            console.error('Error fetching featured recipes:', error);
+            featuredRecipesContainer.innerHTML = `<p class="text-center text-danger">Failed to load recipes. Please try again later.</p>`;
+        }
     }
 </script>
 @endsection
+
