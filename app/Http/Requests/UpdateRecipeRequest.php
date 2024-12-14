@@ -23,9 +23,9 @@ class UpdateRecipeRequest extends FormRequest
     {
         return [
             'title' => 'nullable|string|max:255',
-            'prepare_time' => 'nullable|integer',
+            'prepare_time' => 'nullable|string',
             'difficulty' => 'nullable|string|max:50',
-            'serving' => 'nullable|integer',
+            'serving' => 'nullable|string',
             'main_image' => 'nullable|image',
             'long_description' => 'nullable|string',
             'short_description' => 'nullable|string|max:500',
