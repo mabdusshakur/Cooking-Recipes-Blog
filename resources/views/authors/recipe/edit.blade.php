@@ -329,13 +329,16 @@
         document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
             event.preventDefault();
 
+            const recipeMainImage = document.getElementById('recipeMainImage').files[0];
             const formData = new FormData();
             formData.append('_method', 'PUT');
             formData.append('title', document.getElementById('title').value);
             formData.append('prepare_time', document.getElementById('prepare_time').value);
             formData.append('difficulty', document.getElementById('difficulty').value);
             formData.append('serving', document.getElementById('serving').value);
-            formData.append('main_image', document.getElementById('recipeMainImage').files[0]);
+            if (recipeMainImage) {
+                formData.append('main_image', recipeMainImage);
+            }
             formData.append('short_description', document.getElementById('recipe-short-description').value);
             formData.append('long_description', document.getElementById('snow-editor').innerHTML);
             formData.append('category_id', document.getElementById('category').value);
@@ -360,7 +363,7 @@
                 console.log(pair[0], pair[1]);
             }
 
-            axios.post('/api/v1/author/recipes', formData, {
+            axios.post(`/api/v1/author/recipes/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
