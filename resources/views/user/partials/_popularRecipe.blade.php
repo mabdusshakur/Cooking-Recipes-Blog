@@ -25,31 +25,27 @@
     </div>
 </section>
 
-@section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchRecipesAndCategories();
+    });
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchRecipesAndCategories();
-        });
+    function fetchRecipesAndCategories() {
+        const categoryListContainer = document.getElementById('category-list');
+        const recipeListContainer = document.getElementById('recipe-list');
 
-        function fetchRecipesAndCategories() {
-            const categoryListContainer = document.getElementById('category-list');
-            const recipeListContainer = document.getElementById('recipe-list');
+        categoryListContainer.innerHTML = '';
+        recipeListContainer.innerHTML = '';
 
-            categoryListContainer.innerHTML = '';
-            recipeListContainer.innerHTML = '';
+        axios.get('/api/v1/recipe-category')
+            .then(function(response) {
+                const data = response.data[0];
+                console.log(data);
 
-            axios.get('{{ url('/api/v1/recipe-category') }}')
-                .then(function(response) {
-                    const data = response.data[0];
-                    console.log(data);
-
-                    if (data && data.length > 0) {
-                        data.forEach(function(category) {
-                            const categoryName = category.name ? category.name : 'Unknown';
-                            const categoryHTML = `
+                if (data && data.length > 0) {
+                    data.forEach(function(category) {
+                        const categoryName = category.name ? category.name : 'Unknown';
+                        const categoryHTML = `
                 <div class="swiper-slide">
                     <div class="food-item">
                         <div class="food-thumb">
@@ -61,33 +57,33 @@
                     </div>
                 </div>
                 `;
-                            categoryListContainer.innerHTML += categoryHTML;
-                        });
+                        categoryListContainer.innerHTML += categoryHTML;
+                    });
 
 
 
-                        // Swiper initialization
-                        var swiper = new Swiper(".food-slider", {
-                            slidesPerView: 3,
-                            spaceBetween: 10,
-                            autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            },
-                        });
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error fetching categories:', error);
-                });
+                    // Swiper initialization
+                    var swiper = new Swiper(".food-slider", {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                        autoplay: {
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        },
+                    });
+                }
+            })
+            .catch(function(error) {
+                console.error('Error fetching categories:', error);
+            });
 
 
-            axios.get('{{ url('/api/v1/recipes') }}')
-                .then(function(response) {
-                    const data = response.data;
-                    if (data.data && data.data.length > 0) {
-                        data.data.forEach(function(recipe) {
-                            const recipeHTML = `
+        axios.get('/api/v1/recipes')
+            .then(function(response) {
+                const data = response.data;
+                if (data.data && data.data.length > 0) {
+                    data.data.forEach(function(recipe) {
+                        const recipeHTML = `
                     <div class="col-xl-4 col-md-6 col-12">
                         <div class="p-food-item">
                             <div class="p-food-inner">
@@ -130,13 +126,12 @@
                         </div>
                     </div>
                 `;
-                            recipeListContainer.innerHTML += recipeHTML;
-                        });
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error fetching recipes:', error);
-                });
-        }
-    </script>
-@endsection
+                        recipeListContainer.innerHTML += recipeHTML;
+                    });
+                }
+            })
+            .catch(function(error) {
+                console.error('Error fetching recipes:', error);
+            });
+    }
+</script>
