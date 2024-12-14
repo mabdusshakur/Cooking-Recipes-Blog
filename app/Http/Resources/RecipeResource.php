@@ -37,6 +37,7 @@ class RecipeResource extends JsonResource
             'NutritionalValues' => NutritionalValueResource::collection($this->whenLoaded('nutritionalValues')),
             'is_active' => $this->is_active,
             'is_deleted' => $this->is_deleted,
+            'is_featured' => $this->is_featured,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

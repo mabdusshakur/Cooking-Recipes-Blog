@@ -19,13 +19,17 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        if(auth('api')->user()->role == 'admin') {
+        $user = auth('api')->user();
+    
+        if ($user && $user->role == 'admin') {
             $recipes = Recipe::paginate(10);
         } else {
             $recipes = Recipe::active()->paginate(10);
         }
+    
         return RecipeResource::collection($recipes->load(['recipeCategory', 'ingredients', 'nutritionalValues']));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -51,7 +55,7 @@ class RecipeController extends Controller
 
 
             // dd($data['equipments']);
-            // $recipe->equipments()->createMany($data['equipments']);
+            $recipe->equipments()->createMany($data['equipments']);
             $recipe->ingredients()->createMany($data['ingredients']);
             $recipe->nutritionalValues()->createMany($data['NutritionalValues']);
 
@@ -67,7 +71,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients', 'nutritionalValues'])), 200);
+        return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients','equipments', 'nutritionalValues'])), 200);
     }
 
     /**
@@ -77,11 +81,11 @@ class RecipeController extends Controller
     {
         try {
             $data = $request->validated();
-
+    
             if (auth('api')->user()->role != 'admin') {
                 $data['is_active'] = false;
             }
-
+    
             if ($request->hasFile('main_image')) {
                 $file = $request->file('main_image');
                 $originalName = str_replace(' ', '_', $file->getClientOriginalName());
@@ -89,23 +93,37 @@ class RecipeController extends Controller
                 $path = $file->storeAs('uploads/recipe', $fileName, 'public');
                 $data['main_image'] = url(Storage::url($path));
             }
-
+    
             $recipe->update($data);
-            if (isset($data['equipments'])) {
-                $recipe->equipments()->sync($data['equipments']);
-            }
+    
             if (isset($data['ingredients'])) {
-                $recipe->ingredients()->sync($data['ingredients']);
+                $recipe->ingredients()->delete();
+                foreach ($data['ingredients'] as $ingredient) {
+                    $recipe->ingredients()->create($ingredient);
+                }
             }
+    
+            if (isset($data['equipments'])) {
+                $recipe->equipments()->delete();
+                foreach ($data['equipments'] as $equipment) {
+                    $recipe->equipments()->create($equipment);
+                }
+            }
+    
             if (isset($data['nutritionalValues'])) {
-                $recipe->nutritionalValues()->sync($data['nutritionalValues']);
+                $recipe->nutritionalValues()->delete();
+                foreach ($data['nutritionalValues'] as $nutritionalValue) {
+                    $recipe->nutritionalValues()->create($nutritionalValue);
+                }
             }
+    
             return ResponseHelper::sendSuccess('Recipe was submitted for approval successfully', null, 201);
         } catch (\Throwable $th) {
             Logger::Log($th);
             return ResponseHelper::sendError('Failed to update recipe', $th->getMessage(), 500);
         }
     }
+    
 
     /**
      * Remove the specified resource from storage.

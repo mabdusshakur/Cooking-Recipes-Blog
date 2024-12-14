@@ -89,24 +89,9 @@
                                              </div>
                                              <ul>
                                                  <li class="active">60 ml extra virgin olive oil</li>
-                                                 <li class="active">230 g bacon, diced into pieces</li>
-                                                 <li class="deactive">120 ml dry white wine</li>
-                                                 <li class="active">03 large eggs</li>
-                                                 <li class="deactive">280 ml grated parmesan cheese</li>
-                                                 <li class="deactive">02 Spoon Salt</li>
-                                             </ul>
+                                               
                                          </div>
-                                         <div class="left">
-                                             <div class="title">
-                                                 <h6>Ingredients</h6>
-                                             </div>
-                                             <ul>
-                                                 <li class="active">Roasting pan</li>
-                                                 <li class="active">Meat thermometer</li>
-                                                 <li class="deactive">Cutting board</li>
-                                                 <li class="active">Kitchen twine</li>
-                                             </ul>
-                                         </div>
+                                        
                                          <div class="right">
                                              <div class="title">
                                                  <h6>Nutritional Value</h6>
@@ -118,36 +103,8 @@
                                                      </span>
                                                      <span class="right">6.60g</span>
                                                  </li>
-                                                 <li>
-                                                     <span class="left">
-                                                         <i class="icofont-double-right"></i>Deitary Fiber
-                                                     </span>
-                                                     <span class="right">50g</span>
-                                                 </li>
-                                                 <li>
-                                                     <span class="left">
-                                                         <i class="icofont-double-right"></i>Fat Total
-                                                     </span>
-                                                     <span class="right">60g</span>
-                                                 </li>
-                                                 <li>
-                                                     <span class="left">
-                                                         <i class="icofont-double-right"></i>Energy
-                                                     </span>
-                                                     <span class="right">900mg</span>
-                                                 </li>
-                                                 <li>
-                                                     <span class="left">
-                                                         <i class="icofont-double-right"></i>Fat Saturated
-                                                     </span>
-                                                     <span class="right">39.5g</span>
-                                                 </li>
-                                                 <li>
-                                                     <span class="left">
-                                                         <i class="icofont-double-right"></i>Carbohydrate
-                                                     </span>
-                                                     <span class="right">80g</span>
-                                                 </li>
+                                               
+                                              
                                              </ul>
                                          </div>
                                      </div>
@@ -177,36 +134,9 @@
                                              </div>
                                          </div>
                                      </div>
-                                     <div class="col-xl-3 col-md-6 col-12">
-                                         <div class="product-item">
-                                             <div class="product-thumb">
-                                                 <img src="{{ asset('user/assets/images/food-recipe/02.jpg')}}" alt="food-product">
-                                             </div>
-                                             <div class="product-content">
-                                                 <h6><a href="#">How To Cooking Roast Beef</a></h6>
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div class="col-xl-3 col-md-6 col-12">
-                                         <div class="product-item">
-                                             <div class="product-thumb">
-                                                 <img src="{{ asset('user/assets/images/food-recipe/03.jpg')}}" alt="food-product">
-                                             </div>
-                                             <div class="product-content">
-                                                 <h6><a href="#">How To Cooking Roast Beef</a></h6>
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div class="col-xl-3 col-md-6 col-12">
-                                         <div class="product-item">
-                                             <div class="product-thumb">
-                                                 <img src="{{ asset('user/assets/images/food-recipe/02.jpg')}}" alt="food-product">
-                                             </div>
-                                             <div class="product-content">
-                                                 <h6><a href="#">How To Cooking Roast Beef</a></h6>
-                                             </div>
-                                         </div>
-                                     </div>
+                                   
+                                 
+                                   
                                  </div>
                              </div>
                          </div>
@@ -233,8 +163,16 @@
                                  </div>
                              </div>
                          </div>
+{{-- ---- --}}
+                     </aside>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
 
-                         <div class="widget recipe-categori">
+ 
+                         {{-- <div class="widget recipe-categori">
                              <div class="widget-header">
                                  <h5>Popular Categories</h5>
                              </div>
@@ -322,10 +260,4 @@
                                      </div>
                                  </div>
                              </div>
-                         </div>
-                     </aside>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+                         </div> --}}
