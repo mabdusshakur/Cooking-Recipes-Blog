@@ -32,8 +32,14 @@
      document.addEventListener('DOMContentLoaded', function() {
           const user = JSON.parse(localStorage.getItem('user'));
           const signInTab = document.querySelector('.sign-in-tab');
-          if(user && user.name) {
+          if(user && user.name && user.role == 'user') {
                signInTab.innerHTML = `<a href="{{ route('front.user.profile') }}">{ Profile }</a>`;
+          }
+          else if(user && user.name && user.role == 'author') {
+               signInTab.innerHTML = `<a href="{{ route('front.author.dashboard') }}">{ Profile }</a>`;
+          }
+          else if(user && user.name && user.role == 'admin') {
+               signInTab.innerHTML = `<a href="{{ route('front.admin.dashboard') }}">{ Profile }</a>`;
           }
      });
 </script>
