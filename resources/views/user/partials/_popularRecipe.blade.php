@@ -1,33 +1,29 @@
-@extends('layouts.app')
+<section class="popular-foods padding-tb" style="background-color: #fafeff;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Most Popular Recipes</h2>
+            <p>Completely network impactful users whereas next-generation applications engage out thinking via tactical action.</p>
 
-@section('content')
-    <section class="popular-foods padding-tb" style="background-color: #fafeff;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Most Popular Recipes</h2>
-                <p>Completely network impactful users whereas next-generation applications engage out thinking via tactical action.</p>
+            <div class="food-category">
+                <div class="food-box" style="padding: 15px;">
+                    <div class="section-wrapper">
+                        <div class="food-slider style-2">
+                            <div class="swiper-wrapper" id="category-list">
 
-                <div class="food-category">
-                    <div class="food-box" style="padding: 15px;">
-                        <div class="section-wrapper">
-                            <div class="food-slider style-2">
-                                <div class="swiper-wrapper" id="category-list">
-
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="section-wrapper">
-                <div class="row" id="recipe-list">
+        <div class="section-wrapper">
+            <div class="row" id="recipe-list">
 
-                </div>
             </div>
         </div>
-    </section>
-@endsection
+    </div>
+</section>
 
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>

@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="container mt-4">
     <div class="section-header text-center">
         <h2>Featured Recipes</h2>
@@ -18,7 +15,7 @@
         </div>
     </div>
 </div>
-@endsection
+
 
 @section('scripts')
 <script>
