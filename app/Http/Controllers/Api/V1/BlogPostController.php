@@ -15,15 +15,21 @@ class BlogPostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        if (auth('api')->user()->role == 'admin') {
-            $blogPost = BlogPost::all();
-        } else {
-            $blogPost = BlogPost::active()->get();
-        }
-        return ResponseHelper::sendSuccess('Blog post fetched', BlogPostResource::collection($blogPost), 200);
-    }
+   
+     public function index()
+     {
+         $user = auth('api')->user();
+     
+         if ($user && $user->role == 'admin') {
+             $blogPost = BlogPost::paginate(1); 
+         } else {
+             $blogPost = BlogPost::active()->paginate(1); 
+         }
+     
+         return BlogPostResource::collection($blogPost->load(['author', 'blogCategory']))
+             ->additional(['pagination' => $blogPost->toArray()]);
+     }
+     
 
     /**
      * Store a newly created resource in storage.
@@ -66,7 +72,8 @@ class BlogPostController extends Controller
      */
     public function show(BlogPost $blogPost)
     {
-        return ResponseHelper::sendSuccess('Blog post fetched', new BlogPostResource($blogPost), 200);
+
+        return ResponseHelper::sendSuccess('Blog post fetched', new BlogPostResource($blogPost->load(['author','blogCategory'])), 200);
     }
 
     /**
@@ -118,4 +125,20 @@ class BlogPostController extends Controller
             return ResponseHelper::sendError('Failed to delete blog', $th->getMessage(), 500);
         }
     }
+
+    public function getRelatedBlogPosts($postId)
+{
+    $post = BlogPost::findOrFail($postId);
+    
+    $relatedPosts = BlogPost::where('category_id', $post->category_id)
+                            ->where('id', '!=', $postId)  
+                            ->take(4)  
+                            ->get();
+    
+    return response()->json([
+        'success' => true,
+        'data' => $relatedPosts
+    ]);
+}
+
 }

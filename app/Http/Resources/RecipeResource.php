@@ -27,6 +27,12 @@ class RecipeResource extends JsonResource
             'author' => [
                 'id' => $this->author->id,
                 'name' => $this->author->name,
+                'mini_bio' => $this->author->mini_bio,
+                'main_bio' => $this->author->main_bio,
+                'profile_title' => $this->author->profile_title,
+                'main_image' => $this->author->main_image,
+                'main_header' => $this->author->main_header,
+                'mini_header' => $this->author->mini_header,
             ],
             'category' => [
                 'id' => $this->recipeCategory->id,

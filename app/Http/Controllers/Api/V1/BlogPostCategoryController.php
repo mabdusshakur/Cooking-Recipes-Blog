@@ -16,7 +16,8 @@ class BlogPostCategoryController extends Controller
      */
     public function index()
     {
-        if(auth('api')->user()->role == 'admin') {
+        $user = auth('api')->user();
+        if($user && $user->role == 'admin') {
             $blogPostCategories = BlogCategory::all();
         } else {
             $blogPostCategories = BlogCategory::active()->get();
