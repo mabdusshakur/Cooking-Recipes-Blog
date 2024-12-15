@@ -7,6 +7,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
+use App\Models\PopularAuthor;
 use App\Services\AuthorService;
 use Auth;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -113,7 +114,7 @@ class AuthorController extends Controller
 
             $author->update($data);
 
-            return ResponseHelper::sendSuccess('Updated profile successfully',$data, 200);
+            return ResponseHelper::sendSuccess('Updated profile successfully', $data, 200);
         } catch (\Throwable $th) {
             Logger::Log($th);
             return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
@@ -132,7 +133,8 @@ class AuthorController extends Controller
      * Approve the author application.
      */
 
-    public function approveAuthor(Request $request){
+    public function approveAuthor(Request $request)
+    {
         try {
             $request = $request->validate(['author_id' => 'required|integer|exists:authors,id']);
 
@@ -147,6 +149,20 @@ class AuthorController extends Controller
             }
 
             return ResponseHelper::sendSuccess('Author approved successfully.', [], 200);
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
+        }
+    }
+
+
+
+    // Popular Authors
+    public function popularAuthors()
+    {
+        try {
+            $popularAuthors = PopularAuthor::getPopularAuthors();
+            return ResponseHelper::sendSuccess('Popular author fetched successfully', $popularAuthors, 200);
         } catch (\Throwable $th) {
             Logger::Log($th);
             return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);

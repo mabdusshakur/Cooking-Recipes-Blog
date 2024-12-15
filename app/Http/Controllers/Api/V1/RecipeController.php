@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Requests\UpdateRecipeRequest;
 use App\Http\Resources\RecipeResource;
+use App\Models\PopularAuthor;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Storage;
@@ -71,6 +72,8 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
+        PopularAuthor::incrementVisits($recipe->author->id);
+
         return ResponseHelper::sendSuccess('Recipe fetched', new RecipeResource($recipe->load(['recipeCategory', 'ingredients','equipments', 'nutritionalValues'])), 200);
     }
 
