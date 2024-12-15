@@ -19,7 +19,7 @@ class BlogPostResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
             'main_image' => $this->main_image,
-            'author_id' => new AuthorResource($this->whenLoaded('author')),
+            'author' => new AuthorResource($this->whenLoaded('author')),
             'category' => new BlogPostCategoryResource($this->whenLoaded('blogCategory')),
             'category_id' => $this->category_id,
             'is_active' => $this->is_active,
