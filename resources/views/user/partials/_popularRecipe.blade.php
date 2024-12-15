@@ -90,7 +90,7 @@
                                 <div class="p-food-item">
                                     <div class="p-food-inner">
                                         <div class="p-food-thumb">
-                                            <img src="{{ asset('') }}${recipe.main_image}" alt="${recipe.title}">
+                                            <img src="${recipe.main_image}" alt="${recipe.title}">
                                             <span class="bg-success" style="padding: 8px 7px; border-radius: 10px; top: 6px; left: 6px;">
                                                 ${recipe.category.name}
                                             </span>
