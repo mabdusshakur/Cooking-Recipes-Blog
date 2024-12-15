@@ -23,6 +23,7 @@ class AuthorResource extends JsonResource
             'main_header' => $this->main_header,
             'signature' => $this->signature,
             'profile_title' => $this->profile_title,
+            'role' => $this->user->role,
             'main_image' => $this->main_image,
             'name' => $this->user->name,
             'email' => $this->user->email,

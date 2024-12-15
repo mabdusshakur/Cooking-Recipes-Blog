@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Auth Routes
         Route::post('auth/logout', [AuthController::class, 'logout']);
         Route::get('/featured-recipes', [UserDashboardController::class, 'getFeaturedRecipes']);
+        Route::get('/popular-authors', [AuthorController::class, 'popularAuthors']);
 
 
         // <----- General Routes, can be accessible without authentication for no-auth & auth both users ----->
