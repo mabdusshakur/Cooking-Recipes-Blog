@@ -24,14 +24,13 @@
         </div>
     </div>
 </section>
-@section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded',async function() {
             await fetchCategories();
             await fetchRecipes();
         });
 
-        async function fetchCategories() {
+     async function fetchCategories() {
     const categoryListContainer = document.getElementById('category-list');
     categoryListContainer.innerHTML = ''; 
 
@@ -137,4 +136,4 @@ async function fetchRecipes() {
 }
 
     </script>
-@endsection
+

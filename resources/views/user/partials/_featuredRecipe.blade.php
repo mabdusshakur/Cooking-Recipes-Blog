@@ -17,7 +17,6 @@
 </div>
 
 
-@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', async function () {
         await fetchFeaturedRecipes();
@@ -82,5 +81,4 @@
 }
 
 </script>
-@endsection
 

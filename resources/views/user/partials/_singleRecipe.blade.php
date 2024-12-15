@@ -50,7 +50,6 @@
     </div>
 </div>
 
-@section('scripts')
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
@@ -287,4 +286,3 @@
             }
         }
     </script>
-@endsection
