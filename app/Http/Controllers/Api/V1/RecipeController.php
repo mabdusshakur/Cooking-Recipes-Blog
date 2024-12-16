@@ -18,18 +18,26 @@ class RecipeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth('api')->user();
+        $categoryId = $request->query('category_id'); 
     
-        if ($user && $user->role == 'admin') {
-            $recipes = Recipe::paginate(10);
-        } else {
-            $recipes = Recipe::active()->paginate(10);
+        $query = Recipe::query();
+    
+        if ($user && $user->role != 'admin') {
+            $query->active(); 
         }
+    
+        if ($categoryId) {
+            $query->where('category_id', $categoryId); 
+        }
+    
+        $recipes = $query->paginate(10);
     
         return RecipeResource::collection($recipes->load(['recipeCategory', 'ingredients', 'nutritionalValues']));
     }
+    
     
 
     /**
