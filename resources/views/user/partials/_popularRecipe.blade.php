@@ -19,7 +19,9 @@
 
         <div class="section-wrapper">
             <div class="row" id="recipe-list">
-
+                <div class="d-none spinner-border text-danger" role="status" id="spinner">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </div>
     </div>
@@ -29,6 +31,14 @@
         await fetchCategories();
         await fetchRecipes();
     });
+
+    const showSpinner = () => {
+        document.getElementById('spinner').classList.remove('d-none');
+    }
+    const hideSpinner = () => {
+        document.getElementById('spinner').classList.add('d-none');
+    }
+    
 
     async function fetchCategories() {
         const categoryListContainer = document.getElementById('category-list');
@@ -46,12 +56,12 @@
                         <div class="swiper-slide">
                             <div class="food-item">
                                 <div class="food-thumb">
-                                    <a href="#" data-category-id="${category.id}" class="category-link">
+                                    <a data-category-id="${category.id}" class="category-link" style="cursor : pointer;">
                                         <img src="default-image.jpg" alt="${categoryName}">
                                     </a>
                                 </div>
                                 <div class="food-content">
-                                    <a href="#" data-category-id="${category.id}" class="category-link">
+                                    <a data-category-id="${category.id}" class="category-link" style="cursor : pointer;">
                                         ${categoryName}
                                     </a>
                                 </div>
@@ -89,6 +99,8 @@
     }
 
     async function fetchRecipes(categoryId = null) {
+        showSpinner();
+        
         const recipeListContainer = document.getElementById('recipe-list');
         recipeListContainer.innerHTML = '';
 
@@ -147,11 +159,10 @@
             } else {
                 recipeListContainer.innerHTML = '<p>No recipes available at this time.</p>';
             }
+            hideSpinner();
         } catch (error) {
             console.error('Error fetching recipes:', error);
             recipeListContainer.innerHTML = '<p>Unable to load recipes. Please try again later.</p>';
         }
     }
 </script>
-
-
