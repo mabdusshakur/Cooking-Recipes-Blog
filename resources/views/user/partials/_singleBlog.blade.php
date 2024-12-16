@@ -66,6 +66,45 @@
 
 
         });
+        async function loadCategories() {
+    const categoryListContainer = document.getElementById('blog-category');
+    categoryListContainer.innerHTML = '';
+
+    try {
+        const res = await axios.get('{{ url('/api/v1/blog-category') }}');
+        const categories = res.data[0];
+         console.log(categories);
+         
+
+        if (categories && categories.length > 0) {
+            categories.forEach((category) => {
+                const categoryName = category.name || 'Unknown';
+                const categoryHTML = `
+                <li>
+                    <a href="#" class="d-flex flex-wrap justify-content-between" data-category-id="${category.id}">
+                        <span><i class="icofont-double-right"></i>${categoryName}</span><span>${category.blog_posts_count}</span>
+                    </a>
+                </li>
+            `;
+                categoryListContainer.innerHTML += categoryHTML;
+            });
+
+            document.querySelectorAll('[data-category-id]').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const categoryId = this.getAttribute('data-category-id');
+                    loadBlogPosts(categoryId); 
+                });
+            });
+
+        } else {
+            categoryListContainer.innerHTML = '<p>No categories available</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        categoryListContainer.innerHTML = '<p>Error loading categories. Please try again later.</p>';
+    }
+}
         async function loadSingleBlogPost(postId) {
         const blogPostContainer = document.getElementById('single-blog-post');
         blogPostContainer.innerHTML = ''; 
@@ -111,36 +150,7 @@
             blogPostContainer.innerHTML = '<p>Unable to load the blog post. Please try again.</p>';
         }
     }
-   async function loadCategories() {
-            const categoryListContainer = document.getElementById('blog-category');
-            categoryListContainer.innerHTML = '';
-
-            try {
-                const res = await axios.get('{{ url('/api/v1/blog-category') }}');
-                const categories = res.data[0];
-
-                if (categories && categories.length > 0) {
-                    categories.forEach((category) => {
-                        const categoryName = category.name || 'Unknown';
-                        const categoryImage = category.image || 'default-image.jpg';
-
-                        const categoryHTML = `
-                   <li>
-                                     <a href="#" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>${category.name}</span><span>06</span></a>
-                                 </li>
-                `;
-                        categoryListContainer.innerHTML += categoryHTML;
-                    });
-                } else {
-                    categoryListContainer.innerHTML = '<p>No categories available</p>';
-                }
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-                categoryListContainer.innerHTML = '<p>Error loading categories. Please try again later.</p>';
-            }
-        }
-
-
+  
 
     async function loadAuthor(postId) {
             const authorContainer = document.getElementById('author');
@@ -217,11 +227,4 @@
     }
 }
 
-
-
-
-
-    
-
-
-        </script>
+  </script>

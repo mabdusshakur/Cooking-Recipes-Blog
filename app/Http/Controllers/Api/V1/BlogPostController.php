@@ -16,14 +16,21 @@ class BlogPostController extends Controller
      * Display a listing of the resource.
      */
    
-     public function index()
+     public function index(Request $request)
      {
          $user = auth('api')->user();
+         $categoryId = $request->query('category_id');
+     
+         $query = BlogPost::query();
+     
+         if ($categoryId) {
+             $query->where('category_id', $categoryId);
+         }
      
          if ($user && $user->role == 'admin') {
-             $blogPost = BlogPost::paginate(1); 
+             $blogPost = $query->paginate(2);
          } else {
-             $blogPost = BlogPost::active()->paginate(1); 
+             $blogPost = $query->active()->paginate(2);
          }
      
          return BlogPostResource::collection($blogPost->load(['author', 'blogCategory']))

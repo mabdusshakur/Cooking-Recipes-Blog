@@ -11,7 +11,7 @@
 
                         <div class="paginations">
                             <ul class="d-flex justify-content-center flex-wrap" id="pagination-links">
-                              
+
                             </ul>
                         </div>
                     </article>
@@ -40,57 +40,79 @@
     </div>
 </div>
 
-@section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            await loadBlogPosts();
-            await loadCategories();
-            // const blogId = window.location.pathname.split('/').pop();
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        await loadCategories();
+        await loadBlogPosts();
 
-        });
-        async function loadCategories() {
-            const categoryListContainer = document.getElementById('blog-category');
-            categoryListContainer.innerHTML = '';
+        // const blogId = window.location.pathname.split('/').pop();
 
-            try {
-                const res = await axios.get('{{ url('/api/v1/blog-category') }}');
-                const categories = res.data[0];
-                console.log(categories);
+    });
+    async function loadCategories() {
+    const categoryListContainer = document.getElementById('blog-category');
+    categoryListContainer.innerHTML = '';
 
-                if (categories && categories.length > 0) {
-                    categories.forEach((category) => {
-                        const categoryName = category.name || 'Unknown';
-                        const categoryImage = category.image || 'default-image.jpg';
+    try {
+        const res = await axios.get('{{ url('/api/v1/blog-category') }}');
+        const categories = res.data[0];
+        //  console.log(categories);
+         
 
-                        const categoryHTML = `
-                   <li>
-                                     <a href="#" class="d-flex flex-wrap justify-content-between"><span><i class="icofont-double-right"></i>${category.name}</span><span>06</span></a>
-                                 </li>
-                `;
-                        categoryListContainer.innerHTML += categoryHTML;
-                    });
-                } else {
-                    categoryListContainer.innerHTML = '<p>No categories available</p>';
-                }
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-                categoryListContainer.innerHTML = '<p>Error loading categories. Please try again later.</p>';
-            }
+        if (categories && categories.length > 0) {
+            categories.forEach((category) => {
+                const categoryName = category.name || 'Unknown';
+                const categoryHTML = `
+                <li>
+                    <a href="#" class="d-flex flex-wrap justify-content-between" data-category-id="${category.id}">
+                        <span><i class="icofont-double-right"></i>${categoryName}</span><span>${category.blog_posts_count}</span>
+                    </a>
+                </li>
+            `;
+                categoryListContainer.innerHTML += categoryHTML;
+            });
+
+            document.querySelectorAll('[data-category-id]').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const categoryId = this.getAttribute('data-category-id');
+                    loadBlogPosts(categoryId); 
+                });
+            });
+
+        } else {
+            categoryListContainer.innerHTML = '<p>No categories available</p>';
         }
-        async function loadBlogPosts(page = 1) {
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        categoryListContainer.innerHTML = '<p>Error loading categories. Please try again later.</p>';
+    }
+}
+
+
+    async function loadBlogPosts(categoryId = null, page = 1) {
     const blogPostsContainer = document.getElementById('blog-posts');
     const paginationContainer = document.getElementById('pagination-links');
-    blogPostsContainer.innerHTML = ''; 
+    blogPostsContainer.innerHTML = '';
     paginationContainer.innerHTML = ''; 
 
     try {
-        const res = await axios.get(`{{ url("/api/v1/blog-post") }}?page=${page}`);
-        const data = res.data.data; // Blog post data
-        const pagination = res.data.pagination; // Pagination information
-        console.log(pagination);
+        let url = `{{ url("/api/v1/blog-post") }}?page=${page}`;
+        if (categoryId) {
+            url += `&category_id=${categoryId}`;
+        }
+
+        const res = await axios.get(url);
+        const blogPosts = res.data.data; 
+        console.log(blogPosts);
+         
+        const pagination = res.data.pagination;
         
-        // Display blog posts
-        data.forEach(post => {
+        if (!blogPosts || blogPosts.length === 0) {
+            blogPostsContainer.innerHTML = '<p>No blogs available in this category.</p>';
+            return; 
+        }
+
+        blogPosts.forEach(post => {
             const postHTML = `
                 <div class="post-item">
                     <div class="post-inner">
@@ -123,11 +145,11 @@
         });
 
         // Display pagination links
-        if (pagination.last_page > 1) {
+        if (pagination && pagination.last_page > 1) {
             for (let i = 1; i <= pagination.last_page; i++) {
                 const paginationLink = document.createElement('li');
                 paginationLink.innerHTML = `
-                    <a href="#" class="page-link" onclick="loadBlogPosts(${i})">${i}</a>
+                    <a  class="page-link" onclick="loadBlogPosts(${categoryId}, ${i})">${i}</a>
                 `;
                 if (i === pagination.current_page) {
                     paginationLink.classList.add('active');
@@ -143,11 +165,9 @@
 
 
 
-
-        // Helper function to strip HTML tags
-        function stripHtmlTags(str) {
-            if (!str) return '';
-            return str.replace(/<\/?[^>]+(>|$)/g, '');
-        }
-    </script>
-@endsection
+    //  function to strip HTML tags
+    function stripHtmlTags(str) {
+        if (!str) return '';
+        return str.replace(/<\/?[^>]+(>|$)/g, '');
+    }
+</script>

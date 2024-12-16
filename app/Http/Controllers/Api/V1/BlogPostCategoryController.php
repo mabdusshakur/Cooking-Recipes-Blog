@@ -14,16 +14,34 @@ class BlogPostCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $user = auth('api')->user();
+    //     if($user && $user->role == 'admin') {
+    //         $blogPostCategories = BlogCategory::all();
+    //     } else {
+    //         $blogPostCategories = BlogCategory::active()->get();
+    //     }
+    //     return ResponseHelper::sendSuccess('Blog post category list fetched', BlogPostCategoryResource::collection($blogPostCategories), 200);
+    // }
+
     public function index()
-    {
-        $user = auth('api')->user();
-        if($user && $user->role == 'admin') {
-            $blogPostCategories = BlogCategory::all();
-        } else {
-            $blogPostCategories = BlogCategory::active()->get();
-        }
-        return ResponseHelper::sendSuccess('Blog post category list fetched', BlogPostCategoryResource::collection($blogPostCategories), 200);
+{
+    $user = auth('api')->user();
+
+    if ($user && $user->role == 'admin') {
+        $blogPostCategories = BlogCategory::withCount('blogPosts')->get();
+    } else {
+        $blogPostCategories = BlogCategory::active()->withCount('blogPosts')->get();
     }
+
+    return ResponseHelper::sendSuccess(
+        'Blog post category list fetched', 
+        BlogPostCategoryResource::collection($blogPostCategories), 
+        200
+    );
+}
+
 
     /**
      * Store a newly created resource in storage.

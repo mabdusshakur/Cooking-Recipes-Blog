@@ -21,6 +21,6 @@ class BlogPost extends BaseModel
     }
     public function blogCategory()
     {
-        return $this->belongsTo(BlogCategory::class);
+        return $this->belongsTo(BlogCategory::class,'category_id');
     }
 }

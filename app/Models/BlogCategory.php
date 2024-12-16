@@ -9,6 +9,6 @@ class BlogCategory extends BaseModel
     // Relationships
     public function blogPosts()
     {
-        return $this->hasMany(BlogPost::class);
+        return $this->hasMany(BlogPost::class,'category_id');
     }
 }
