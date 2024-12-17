@@ -32,12 +32,12 @@
         await fetchRecipes();
     });
 
-    const showSpinner = () => {
-        document.getElementById('spinner').classList.remove('d-none');
-    }
-    const hideSpinner = () => {
-        document.getElementById('spinner').classList.add('d-none');
-    }
+    // const showSpinner = () => {
+    //     document.getElementById('spinner').classList.remove('d-none');
+    // }
+    // const hideSpinner = () => {
+    //     document.getElementById('spinner').classList.add('d-none');
+    // }
     
 
     async function fetchCategories() {
@@ -99,7 +99,7 @@
     }
 
     async function fetchRecipes(categoryId = null) {
-        showSpinner();
+        // showSpinner();
         
         const recipeListContainer = document.getElementById('recipe-list');
         recipeListContainer.innerHTML = '';
@@ -159,7 +159,7 @@
             } else {
                 recipeListContainer.innerHTML = '<p>No recipes available at this time.</p>';
             }
-            hideSpinner();
+            // hideSpinner();
         } catch (error) {
             console.error('Error fetching recipes:', error);
             recipeListContainer.innerHTML = '<p>Unable to load recipes. Please try again later.</p>';
