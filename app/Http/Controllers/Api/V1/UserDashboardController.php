@@ -1,9 +1,14 @@
 <?php
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\RecipeResource;
+use App\Models\User;
+use App\Models\Author;
 use App\Models\Recipe;
+use App\Helpers\Logger;
+use App\Helpers\ResponseHelper;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\AuthorResource;
+use App\Http\Resources\RecipeResource;
 
 class UserDashboardController extends Controller
 {
@@ -15,4 +20,23 @@ class UserDashboardController extends Controller
 
         return RecipeResource::collection($featuredRecipes);
     }
+  
+
+    public function getAllAuthor()
+    {
+        try {
+            $allAuthors = Author::with(['user', 'recipes', 'blogPosts'])->get();
+            return ResponseHelper::sendSuccess(
+                'All authors fetched successfully',
+                AuthorResource::collection($allAuthors),
+                200
+            );
+        } catch (\Throwable $th) {
+            Logger::Log($th);
+            return ResponseHelper::sendError('Something went wrong!', $th->getMessage(), 500);
+        }
+    }
+    
+    
+
 }

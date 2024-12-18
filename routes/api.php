@@ -48,6 +48,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // General Profile
         Route::get('/profile', [AuthController::class, 'profile']);
+        //author routes
+        Route::get('/all-authors', [UserDashboardController::class, 'getAllAuthor']);
+
 
         // User Middleware
         Route::group(['prefix' => 'user', 'middleware' => 'CheckRole:user'], function () {
