@@ -41,6 +41,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Recipe Routes (Show All, Show One)
         Route::apiResource('/recipes', RecipeController::class)->only('index', 'show');
+         //author routes
+         Route::apiResource('/authors', UserDashboardController::class)->only(['index','show']);
+
         //related recipe
         Route::get('/recipes/{recipeId}/related', [RecipeController::class, 'getRelatedRecipes']);
         //related blogs
@@ -48,8 +51,6 @@ Route::group(['prefix' => 'v1'], function () {
 
         // General Profile
         Route::get('/profile', [AuthController::class, 'profile']);
-        //author routes
-        Route::get('/all-authors', [UserDashboardController::class, 'getAllAuthor']);
 
 
         // User Middleware

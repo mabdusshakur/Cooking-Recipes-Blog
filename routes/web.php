@@ -12,6 +12,7 @@ Route::get('/recipes',[FrontendController::class,'recipes']);
 Route::get('/authors',[FrontendController::class,'authors']);
 Route::get('/single-recipe/{recipe}',[FrontendController::class,'singleRecipe']);
 Route::get('/single-blog/{blog}',[FrontendController::class,'singleBlog']);
+Route::get('/single-author/{author}',[FrontendController::class,'singleAuthor']);
 Route::get('/sign-in',[FrontendController::class,'signIn'])->name('front.auth.sign-in');
 Route::get('/sign-up',[FrontendController::class,'signUp'])->name('front.auth.sign-up');
 Route::get('/verify-otp',[FrontendController::class,'verifyOtp'])->name('front.auth.verify-otp');

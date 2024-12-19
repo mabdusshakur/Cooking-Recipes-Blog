@@ -8,6 +8,7 @@
     </div>
 </section>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
         await loadAllAuthors();
@@ -18,7 +19,7 @@
         authorListContainer.innerHTML = '';
 
         try {
-            const res = await axios.get('{{ url('/api/v1/all-authors') }}');
+            const res = await axios.get('{{ url('/api/v1/authors') }}');
             const authors = res.data[0];
 
             // const authors = responseData;
@@ -40,7 +41,7 @@
                                         <h5><a href="#">${author.name || 'Unknown Author'}</a></h5>
                                         <p>${author.profile_title || 'Author'}</p>
                                         <div class="scocial-share">
-                                            <a href="#" class="food-btn"><span><i class="icofont-ui-user"></i> Profile</span></a>
+                                            <a href="single-author/${author.id}" class="food-btn"><span><i class="icofont-ui-user"></i> Profile</span></a>
                                         </div>
                                         <div class="chef-footer">
                                             <div class="chef-con">

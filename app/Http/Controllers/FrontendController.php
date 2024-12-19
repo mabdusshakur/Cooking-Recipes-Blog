@@ -37,6 +37,10 @@ class FrontendController extends Controller
         $data['page']='Blog';
         return view('user.blog.show',$data);
     }
+    public function singleAuthor(){
+       
+        return view('user.authors.show');
+    }
 
     public function signIn(){
         return view('user.auth.sign-in');
